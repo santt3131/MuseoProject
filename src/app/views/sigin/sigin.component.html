@@ -1,0 +1,25 @@
+<app-activity-header></app-activity-header>
+<form class="formulario" [formGroup]="loginForm" (ngSubmit)="checkLogin()">
+    <div>
+        <label>Email: </label>
+        <input type="text" [formControl]="email">
+        <span style="color:red" *ngIf=" email.invalid && (email.touched || email.dirty )">
+            <span *ngIf="email.errors.required"> Email is required </span>
+            <span *ngIf="email.errors.wordInvalid && !email.errors.required">Format is incorrect</span>
+        </span>
+    </div>
+    <div>
+        <label>Password: </label>
+        <input type="password" [formControl]="password">
+        <span style="color:red" *ngIf=" password.invalid && (password.touched || password.dirty )">
+            <span *ngIf="password.hasError('required')"> Password is required </span>
+        </span>
+    </div>
+    <div>
+        <span style="color:red" *ngIf="(myUser|json) == '[]' && loginForm.valid" >
+            Email y/o contraseña incorrectos
+        </span>
+    </div>
+    <button type="submit" [disabled]="!loginForm.valid">Login</button>
+
+</form>

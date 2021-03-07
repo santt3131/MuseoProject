@@ -1,11 +1,37 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { AppComponent } from './app.component';
+import { ActivityListComponent } from './views/activity-list/activity-list.component';
+import { HomeComponent } from './views/home/home.component';
+import { JoinnowComponent } from './views/joinnow/joinnow.component';
+import { MyActivitiesComponent } from './views/my-activities/my-activities.component';
+import { SiginComponent } from './views/sigin/sigin.component';
 
-
-const routes: Routes = [];
+const routes: Routes = [
+  {
+    path: '',
+    component: HomeComponent ,
+  },
+  {
+    path: 'home',
+    component: HomeComponent ,
+  },
+  {
+    path: 'signin',
+    component: SiginComponent,
+  },
+  {
+    path: 'signup',
+    component: JoinnowComponent
+  },
+  {
+    path: 'myactivities',
+    component: MyActivitiesComponent
+  },
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

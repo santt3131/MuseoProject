@@ -1,0 +1,60 @@
+<app-activity-header></app-activity-header>
+<form class="formulario" [formGroup]="joinForm" (ngSubmit)="joinNow()">
+    <div>
+        <label>Name*: </label>
+        <input type="text" [formControl]="name">
+        <div>
+        <span style="color:red" *ngIf=" name.invalid && (name.touched || name.dirty )">
+            <span *ngIf="name.errors.required"> Name is required </span>
+            <span *ngIf="name.errors.minlength || name.errors.maxlength  "> Name should be 3 - 55 characters. </span>
+            <span *ngIf="name.errors.wordInvalid"> It should be without space at the beginning and end or special characters.</span>
+        </span>
+    </div>
+    </div>
+    <div>
+        <label>Surname: </label>
+        <input type="text" [formControl]="surname">
+        <span style="color:rgb(119, 112, 9)" *ngIf=" surname.invalid && (surname.touched || surname.dirty )">
+            This is an optional field.
+            <span *ngIf="surname.errors.minlength || surname.errors.maxlength  "> Surname should be 3 - 55 characters. </span>
+            <span *ngIf="surname.errors.wordInvalid"> It should be without space at the beginning and end or special characters.</span>
+        </span>
+    </div>
+    <div>
+        <label>Type*: </label>
+        <select [formControl]="type">
+            <option>COMPANY</option>
+            <option>TOURIST</option>
+        </select>
+        <span style="color:red" *ngIf=" type.invalid && (type.touched || type.dirty )">
+            <span *ngIf="type.hasError('required')"> Type is required </span>
+        </span>
+    </div>
+    <div>
+        <label>Email*: </label>
+        <input type="text" [formControl]="email">
+        <span style="color:red" *ngIf=" email.invalid && (email.touched || email.dirty )">
+            <span *ngIf="email.hasError('required')"> Email is required </span>
+            <span *ngIf="email.errors.wordInvalid && !email.errors.required">Format is incorrect</span>
+            <span *ngIf="email.errors?.verifiedEmail ">Email is registered. Try other email</span>
+        </span>
+    </div>
+    <div>
+        <label>Password*: </label>
+        <input type="password" [formControl]="password">
+        <span style="color:red" *ngIf=" password.invalid && (password.touched || password.dirty )">
+            <span *ngIf="password.hasError('required')"> Password is required </span>
+            <span *ngIf="password.errors.minlength"> It should be at least 8 characters </span>
+        </span>
+    </div>
+    <div>
+        <label>Repeat password*: </label>
+        <input type="password" [formControl]="passwordConfirm">
+        <span style="color:red" *ngIf=" passwordConfirm.invalid && (passwordConfirm.touched || passwordConfirm.dirty )">
+            <span *ngIf="passwordConfirm.hasError('required')"> Password is required </span>
+            <span *ngIf="passwordConfirm.errors.minlength"> It should be at least 8 characters </span>
+            <span  style="color:red" *ngIf="passwordConfirm.errors?.extra">Password y RepeatPassword are not the same </span>
+        </span>
+    </div>
+    <button type="submit" [disabled]="!joinForm.valid">Join Now</button>
+</form>

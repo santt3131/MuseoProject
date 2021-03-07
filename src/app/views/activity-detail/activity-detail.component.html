@@ -1,0 +1,30 @@
+<div>
+    <table>
+        <thead>
+        <tr *ngIf="activity">
+            <th>NAME</th>
+            <th>CATEGORY</th>
+            <th>DESCRIPTION</th>
+            <th>SUBCATEGORY</th>
+            <th>LANGUAGE</th>
+            <th>PRICE</th>
+            <th>DATE</th>
+            <th>PEOPLE REGISTERED</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngIf="activity">
+                <td>{{ activity.name }}</td>
+                <td>{{ activity.category }}</td>
+                <td>{{ activity.description }}</td>
+                <td>{{ activity.subcategory }}</td>
+                <td>{{ activity.language }}</td>
+                <td>{{ activity.price }}</td>
+                <td>{{ activity.date }}</td>
+                <td>{{ activity.peopleRegistered }}</td>
+        </tr>
+    </tbody>
+    </table>
+    <button *ngIf="activity && user?.type ==='TOURIST' "> SIGN UP </button>
+    <button *ngIf="activity && user?.type ==='TOURIST' "> SAVE FAVORITES </button>
+</div>

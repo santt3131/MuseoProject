@@ -1,0 +1,36 @@
+<nav>
+    <ul class="menu">
+        <li class="column">
+        <img class="logo" src="./../assets/logoMuseo.png">
+        </li>
+    
+        <li *ngIf="user" class="column">
+        <ul  class="menu right" >
+            <li> <a routerLink="/">HOME</a> </li>
+            <li *ngIf="user && user.type=='TOURIST'">
+                <a routerLink="/favorites">FAVORITES</a>
+            </li>
+            <li *ngIf="user && user.type=='TOURIST'">
+                <a routerLink="/myactivities">MY ACTIVITIES</a>
+            </li>
+            <li *ngIf="user && user.type=='COMPANY'">
+                <a routerLink="/favorites">ADMIN</a>
+            </li>
+            <li><a routerLink="/profile">PROFILE</a></li>
+            <li ><a  (click)="logout()" routerLink="/home">LOG OUT</a></li>
+        </ul>
+        </li>
+
+        <li *ngIf="!user" class="column">
+        <ul  class="menu right" >
+            <li>
+                <a routerLink="/signin">SIGN IN</a>
+            </li>
+            <li>
+                <a routerLink="/signup">JOIN NOW</a>
+            </li>
+        </ul>
+        </li>
+    
+    </ul>
+</nav>

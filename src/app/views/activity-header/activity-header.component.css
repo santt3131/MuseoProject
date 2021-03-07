@@ -1,0 +1,32 @@
+.menu{
+  display:flex;
+  flex-direction: row;
+  background-color: blanchedalmond;
+  align-items: center;
+}
+
+.right{
+  align-self: flex-end;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+
+
+.logo{
+    width: 15%;
+}
+
+ul{
+  list-style-type: none ;
+}
+
+.menu li {
+  padding-left: 20px;
+}
+
+

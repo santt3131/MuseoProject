@@ -1,0 +1,33 @@
+<div class="row">
+    <div class="column">
+        <table>
+            <thead>
+                <tr>
+                    <th>NAME</th>
+                    <th>CATEGORY</th>
+                    <th>PRICE</th>
+                    <th>LANGUAGE</th>
+                    <th>DATE</th>
+                    <th>ACTIONS</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let activity of activities">
+                    <td>{{ activity.name }}</td>
+                    <td>{{ activity.category }}</td>
+                    <td>{{ activity.price }}</td>
+                    <td>{{ activity.language }}</td>
+                    <td>{{ activity.date }}</td>
+                    <td><button (click)="detail(activity)">Detail</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+    <!--Detalle-->
+
+    <div class="column">
+        <app-activity-detail [activity]="activity "></app-activity-detail>
+    </div>
+</div>
