@@ -15,6 +15,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HomeComponent } from './views/home/home.component';
 import { JoinnowComponent } from './views/joinnow/joinnow.component';
 import { MyActivitiesComponent } from './views/my-activities/my-activities.component';
+import { MyFavoritesComponent } from './views/my-favorites/my-favorites.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { MyActivitiesComponent } from './views/my-activities/my-activities.compo
     SiginComponent,
     HomeComponent,
     JoinnowComponent,
-    MyActivitiesComponent
+    MyActivitiesComponent,
+    MyFavoritesComponent
   ],
   imports: [
     BrowserModule,

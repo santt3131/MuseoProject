@@ -29,6 +29,6 @@ export class ActivityHeaderComponent implements OnInit {
      localStorage.clear();
     console.log('localStorage limpio');
     this.reloadComponent();
-
   }
+  
 }

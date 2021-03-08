@@ -36,7 +36,8 @@ export class InMemoryDataService implements InMemoryDbService {
         email: 'santiagobruno@gmail.com',
         password: '12345678',
         passwordConfirm : '12345678',
-        activities:[1,3,4]
+        activities:[1,4],
+        favorites:[2,3]
       },
       {
         id: 4, 
@@ -46,7 +47,8 @@ export class InMemoryDataService implements InMemoryDbService {
         email: 'erikaramos@gmail.com',
         password: '12345678',
         passwordConfirm : '12345678',
-        activities:[3,4]
+        activities:[3,4],
+        favorites:[1,2,3]
       }
       
     ];

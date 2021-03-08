@@ -5,6 +5,7 @@ import { ActivityListComponent } from './views/activity-list/activity-list.compo
 import { HomeComponent } from './views/home/home.component';
 import { JoinnowComponent } from './views/joinnow/joinnow.component';
 import { MyActivitiesComponent } from './views/my-activities/my-activities.component';
+import { MyFavoritesComponent } from './views/my-favorites/my-favorites.component';
 import { SiginComponent } from './views/sigin/sigin.component';
 
 const routes: Routes = [
@@ -27,6 +28,10 @@ const routes: Routes = [
   {
     path: 'myactivities',
     component: MyActivitiesComponent
+  },
+  {
+    path: 'favorites',
+    component: MyFavoritesComponent
   },
 ];
 

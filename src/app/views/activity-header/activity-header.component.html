@@ -6,7 +6,7 @@
     
         <li *ngIf="user" class="column">
         <ul  class="menu right" >
-            <li> <a routerLink="/">HOME</a> </li>
+            <li> <a routerLink="/home">HOME</a> </li>
             <li *ngIf="user && user.type=='TOURIST'">
                 <a routerLink="/favorites">FAVORITES</a>
             </li>

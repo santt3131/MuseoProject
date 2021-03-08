@@ -49,20 +49,9 @@ export class UserService {
       return of([]);
     }
   }
-/*
-  searchEmail(users: User[], email: string): Observable<any> {
-    if (users && email) {
-      const url = `${this.UserUrl}/`;
-      for (const user of users) {
-        if (user.email === email) {
-          return of([true])
-        }
-      }
-      return of([false]);
-    }
-  }*/
 
-  updateUser(User: User): Observable<User[]> {
+
+  updateUser(User: User): Observable<User> {
     return this.http.put(this.UserUrl, User, this.httpOptions).pipe(
       tap((_) => this.log(`updated hero id=${User.id}`)),
       catchError(this.handleError<any>('updateUser'))

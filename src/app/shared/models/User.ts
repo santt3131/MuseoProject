@@ -8,5 +8,6 @@ export interface User{
     email:string;
     password:string;
     passwordConfirm:string;
-    activities: [];//puede ser varias
+    activities: number[];//puede ser varias
+    favorites: number[];//puede ser varias
 }

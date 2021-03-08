@@ -29,9 +29,6 @@ export class ActivityService {
     );
   }
 
-  getActivitiesByUser():Activity[]{
-    return null;
-  }
   
   getActivityDetail(id:number):Observable<Activity>{
     const url= `${this.activityUrl}/${id}`;
