@@ -6,6 +6,7 @@ import { HomeComponent } from './views/home/home.component';
 import { JoinnowComponent } from './views/joinnow/joinnow.component';
 import { MyActivitiesComponent } from './views/my-activities/my-activities.component';
 import { MyFavoritesComponent } from './views/my-favorites/my-favorites.component';
+import { ProfileComponent } from './views/profile/profile.component';
 import { SiginComponent } from './views/sigin/sigin.component';
 
 const routes: Routes = [
@@ -33,6 +34,10 @@ const routes: Routes = [
     path: 'favorites',
     component: MyFavoritesComponent
   },
+  {
+    path: 'profile',
+    component: ProfileComponent
+  }
 ];
 
 @NgModule({

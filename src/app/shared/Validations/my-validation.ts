@@ -1,4 +1,5 @@
-import { FormControl, FormGroup, ValidatorFn } from "@angular/forms";
+import { AbstractControl, FormControl, FormGroup, ValidatorFn } from "@angular/forms";
+import { validateSpanishId} from 'spain-id';
 
 export class MyValidation{
     public static maskValidation(mask: RegExp):(ValidatorFn | null | undefined){
@@ -21,4 +22,15 @@ export class MyValidation{
             return null;
         };
     }
+
+
+    public static checkNifEs(): ValidatorFn {
+        return (control: AbstractControl): {[key: string]: any} |null => {
+          if(!control.value) return null
+          const valid = validateSpanishId(control.value)
+          return !valid ? {nif: {value: control.value}} : null;
+        }
+      }
+    
+    
 }

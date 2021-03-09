@@ -14,6 +14,7 @@ import { UserService } from 'src/app/shared/services/user.service';
 export class ActivityDetailComponent implements OnInit {
   @Input() activity: Activity;
   public user: User;
+  public userSuperNew:User;
   public users: User[];
   public foundActivities:number ;
   public foundFavorites:number ;
@@ -25,37 +26,52 @@ export class ActivityDetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.user = JSON.parse(localStorage.getItem('miUsuario'));
-    this.verifiedSignUp();  //para que se actualice cada vez que de click detail
-    this.verifiedFavorites();
-    this.userService.getUser(this.user.id).subscribe((user)=>{
-        return this.user= user;
+    if(this.user){
+        this.verifiedSignUp(); 
+        this.verifiedFavorites();
+        //Si es usuario antiguo lo recupero
+        this.userService.getUser(this.user?.id).subscribe((user)=>{
+            return this.user= user;
+        });
+  }
+  }
+
+  allUser():void{
+    this.userService.getUsers().subscribe((users) => {
+      this.users = users;
+      console.log('todos los user son:', this.users);
     });
   }
 
   ngOnChanges(): void {
+    if(this.user){
     this.verifiedSignUp(); //para que se actualice cada vez que de click detail
     this.verifiedFavorites();
+    }
   }
 
    verifiedSignUp() {
     //verificando si esta registrado el usuario a una actividad
-     this.foundActivities =   this.user?.activities.find((idActivity) => 
+    if(this.user.activities){
+     this.foundActivities =   this.user?.activities?.find((idActivity) => 
         idActivity === this.activity?.id
     );
   }
+  }
 
    verifiedFavorites(){
+    if(this.user.favorites){
      this.foundFavorites =  this.user?.favorites.find((idActivity)=>
         idActivity === this.activity?.id
     );
+    }
   }
 
   signUp(): void {
     const idActivity = this.activity.id;
     this.user.activities.push(idActivity);
     //Actualizando Usuario
-    this.userService.updateUser(this.user).subscribe(() => {
-    });
+    this.userService.updateUser(this.user).subscribe(() => { });
 
     //Actualizando Actividad
     this.activity.peopleRegistered += 1; //sumale uno

@@ -1,0 +1,59 @@
+<app-activity-header></app-activity-header>
+<form  *ngIf="user" class="formulario" [formGroup]="joinFormUpdate" (ngSubmit)="updateForm()">
+    <div>
+        <label>Name*: </label>
+        <input type="text"  [(ngModel)]="user.name" [formControl]="name">
+        <div>
+        <span style="color:red" *ngIf=" name.invalid && (name.touched || name.dirty )">
+            <span *ngIf="name.errors.required"> Name is required </span>
+            <span *ngIf="name.errors.minlength || name.errors.maxlength  "> Name should be 3 - 55 characters. </span>
+            <span *ngIf="name.errors.pattern"> It should be without space at the beginning and end or special characters.</span>
+        </span>
+        </div>
+    </div>
+    <div>
+        <label>Surname: </label>
+        <input type="text" [(ngModel)]="user.surname" [formControl]="surname">
+        <span style="color:rgb(119, 112, 9)" *ngIf=" surname.invalid && (surname.touched || surname.dirty )">
+            This is an optional field.
+            <span *ngIf="surname.errors.minlength || surname.errors.maxlength  "> Surname should be 3 - 55 characters. </span>
+            <span *ngIf="surname.errors.pattern"> It should be without space at the beginning and end or special characters.</span>
+        </span>
+    </div>
+    <div>
+        <label>Birth Date: </label>
+        <input type="text" [(ngModel)]="user.birthdate" [formControl]="birthdate">
+        <span style="color:red" *ngIf=" birthdate.invalid && (birthdate.touched || birthdate.dirty )">
+            <span *ngIf="birthdate.errors.pattern"> Format incorrect. It should be DD/MM/YYYY </span>
+        </span>
+    </div>
+    <div>
+        <label>Phone: </label>
+        <input type="text" [(ngModel)]="user.phone" [formControl]="phone">
+        <span style="color:red" *ngIf=" phone.invalid && (phone.touched || phone.dirty )">
+            <span *ngIf="phone.errors.wordInvalid"> Please enter a real mobile </span>
+        </span>
+    </div>
+    <div>
+        <label>Nationality: </label>
+        <select [formControl]="nationality" [(ngModel)]="user.nationality" >
+            <option>ES</option>
+            <option>FR</option>
+            <option>IT</option>
+            <option>PT</option>
+        </select>
+    </div>
+    <div>
+        <label>NIF: </label>
+        <input type="text" [(ngModel)]="user.nif" [formControl]="nif">
+        <span style="color:red" *ngIf=" nif.invalid && (nif.touched || nif.dirty )">
+            <span *ngIf="nif.errors.nif">Format Incorret, please verify your NIF </span>
+        </span>
+    </div>
+    <div>
+        <label>About me: </label>
+        <input type="text" [(ngModel)]="user.about" [formControl]="about">
+    </div>
+    
+    <button type="submit" [disabled]="!joinFormUpdate.valid">Update Profile Information</button>
+</form>

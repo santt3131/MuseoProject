@@ -16,7 +16,12 @@ export class InMemoryDataService implements InMemoryDbService {
         email: 'enriquebruno@gmail.com',
         password: '12345678',
         passwordConfirm : '12345678',
-        activities:[]
+        activities:[],
+        birthdate:'10/10/1960',
+        phone: 6866635354,
+        nationality:'ES',
+        nif:'31914309S',
+        about:'ok'
       },
       {
         id: 2, 
@@ -26,7 +31,12 @@ export class InMemoryDataService implements InMemoryDbService {
         email: 'bettyhernandez@gmail.com',
         password: '12345678',
         passwordConfirm : '12345678',
-        activities:[]
+        activities:[],
+        birthdate:'10/10/1949',
+        phone: 6866633354,
+        nationality:'FR',
+        nif:'31914309S',
+        about:'ok'
       },
       {
         id: 3, 
@@ -37,7 +47,12 @@ export class InMemoryDataService implements InMemoryDbService {
         password: '12345678',
         passwordConfirm : '12345678',
         activities:[1,4],
-        favorites:[2,3]
+        favorites:[2,3],
+        birthdate:'10/10/1960',
+        phone: 6866235354,
+        nationality:'FR',
+        nif:'31914309S',
+        about:'ok'
       },
       {
         id: 4, 
@@ -48,7 +63,12 @@ export class InMemoryDataService implements InMemoryDbService {
         password: '12345678',
         passwordConfirm : '12345678',
         activities:[3,4],
-        favorites:[1,2,3]
+        favorites:[1,2,3],
+        birthdate:'10/10/1980',
+        phone: 6266635354,
+        nationality:'ES',
+        nif:'31914309S',
+        about:'ok'
       }
       
     ];
