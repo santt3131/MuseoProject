@@ -12,7 +12,7 @@ import { MyValidation } from 'src/app/shared/Validations/my-validation';
 })
 export class ProfileComponent implements OnInit {
   public joinFormUpdate: FormGroup;
-  @Input() public user:User; 
+  public user:User; 
   public users:User[];
   public myUser:User;
   
@@ -24,15 +24,12 @@ export class ProfileComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.user = JSON.parse(localStorage.getItem('miUsuario'));
-    //if(this.user) console.log('el usuario de profile es',this.user );
-    //this.user ? this.router.navigate(['/home']): null;
-
+     this.user = JSON.parse(localStorage.getItem('miUsuario'));
     this.joinFormUpdate = this.formBuilder.group({
       'name': new FormControl('', [Validators.required,Validators.minLength(3),Validators.maxLength(55),Validators.pattern(/^([a-zA-Z]){3,55}$/)]),
       'surname': new FormControl('', [Validators.minLength(3),Validators.maxLength(55),Validators.pattern(/^([a-zA-Z]){3,55}$/)]),
       'birthdate': new FormControl('', [Validators.pattern(/^([0-2][0-9]|3[0-1])(\/)(0[1-9]|1[0-2])\2(\d{4})$/)]),
-      'phone': new FormControl('', [MyValidation.maskValidation(/(\+34|0034|34)?[ -]*(6|7)[ -]*([0-9][ -]*){8}/)]),
+      'phone': new FormControl('', [Validators.pattern(/(\+34|0034|34)?[ -]*(6|7)[ -]*([0-9][ -]*){8}/)]),
       'nationality': new FormControl('', []),
       'nif': new FormControl('', [MyValidation.checkNifEs()]),
       'about': new FormControl('', []),
@@ -43,38 +40,40 @@ export class ProfileComponent implements OnInit {
     );
   }
 
+
+
+
   updateForm():void{
     const userForm = this.joinFormUpdate.value;
     console.log('los datos a registrar son:', userForm);//los nuevos campos
     console.log('this user es :', this.user);//el antiguo puedo pillar el id
     if(userForm && this.user.id){
-      this.myUser.id= 3;
-      this.myUser.name= userForm.name;
-      this.myUser.surname= userForm.name;
-      this.myUser.type= this.user.type;
-      this.myUser.email= this.user.email;
-      this.myUser.password= this.user.password;
-      this.myUser.passwordConfirm= this.user.password;
-      this.myUser.activities= this.user.activities;
-      this.myUser.birthdate= userForm.birthdate;
-      this.myUser.phone= userForm.phone;
-      this.myUser.nationality= userForm.nationality;
-      this.myUser.nif= userForm.nif;
-      this.myUser.about = userForm.about;
+      this.myUser={
+        id:this.user.id,//
+        name:userForm.name ,
+        surname:userForm.surname ,
+        type:this.user.type,//
+        email:this.user.email,//
+        password:this.user.password,//
+        passwordConfirm:this.user.passwordConfirm,//
+        activities: this.user.activities,//
+        favorites:this.user.favorites,//
+        birthdate: userForm.birthdate,
+        phone:userForm.phone,
+        nationality:userForm.nationality,
+        nif:userForm.nif,
+        about:userForm.about
+      }
 
       this.userService.updateUser(this.myUser).subscribe(() => {
         console.log('se registro correctamente');
+        this.userService.storeUser(this.myUser ); //tambien actualizo mi subject
         alert('usuario actualizado');
       });
-    }
-    //if(this.user)
-    //this.myUser.id = this.user?.id;
     
-    //this.userForm = user;
-    //console.log('el user power es', this.userForm);
-
-   
+    }
   }
+
 
 get name(){
   return this.joinFormUpdate.get('name');

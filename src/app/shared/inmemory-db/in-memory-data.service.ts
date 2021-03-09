@@ -21,7 +21,12 @@ export class InMemoryDataService implements InMemoryDbService {
         phone: 6866635354,
         nationality:'ES',
         nif:'31914309S',
-        about:'ok'
+        about:'ok',
+        typeEducation:'Universidad',
+        level:'Ingeniero(a)',
+        nameEducation:'Informatica',
+        universityEducation:'UPC',
+        finishDateEducation:'02/03/2020'
       },
       {
         id: 2, 
@@ -36,7 +41,12 @@ export class InMemoryDataService implements InMemoryDbService {
         phone: 6866633354,
         nationality:'FR',
         nif:'31914309S',
-        about:'ok'
+        about:'ok',
+        typeEducation:'Universidad',
+        level:'Master',
+        nameEducation:'Psicologia',
+        universityEducation:'UOC',
+        finishDateEducation:'02/03/2019'
       },
       {
         id: 3, 
@@ -52,7 +62,12 @@ export class InMemoryDataService implements InMemoryDbService {
         phone: 6866235354,
         nationality:'FR',
         nif:'31914309S',
-        about:'ok'
+        about:'ok',
+        typeEducation:'C.Formativo',
+        level:'Superior',
+        nameEducation:'Redes',
+        universityEducation:'IFP',
+        finishDateEducation:'02/04/2019'
       },
       {
         id: 4, 
@@ -68,7 +83,12 @@ export class InMemoryDataService implements InMemoryDbService {
         phone: 6266635354,
         nationality:'ES',
         nif:'31914309S',
-        about:'ok'
+        about:'ok',
+        typeEducation:'C.Formativo',
+        level:'Medio',
+        nameEducation:'Ciberseguridad',
+        universityEducation:'IFP',
+        finishDateEducation:'01/02/2020'
       }
       
     ];

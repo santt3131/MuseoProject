@@ -25,7 +25,6 @@ export class ActivityHeaderComponent implements OnInit {
     this.userService.getCurrentUser().subscribe(user=>this.miUsuario= user);
   }
 
-
    logout():void{
     window.localStorage.removeItem('miUsuario');  
     this.miUsuario = null;
