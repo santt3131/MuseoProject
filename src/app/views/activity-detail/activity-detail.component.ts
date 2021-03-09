@@ -5,6 +5,7 @@ import { Activity } from 'src/app/shared/models/Activity';
 import { User } from 'src/app/shared/models/User';
 import { ActivityService } from 'src/app/shared/services/activity.service';
 import { UserService } from 'src/app/shared/services/user.service';
+import { ActivityHeaderComponent } from '../activity-header/activity-header.component';
 
 @Component({
   selector: 'app-activity-detail',
@@ -19,12 +20,14 @@ export class ActivityDetailComponent implements OnInit {
   public foundActivities:number ;
   public foundFavorites:number ;
 
+
   constructor(
     private userService: UserService,
     private activityService: ActivityService
   ) {}
 
   ngOnInit(): void {
+    this.getCurrentUser();
     this.user = JSON.parse(localStorage.getItem('miUsuario'));
     if(this.user){
         this.verifiedSignUp(); 
@@ -36,12 +39,11 @@ export class ActivityDetailComponent implements OnInit {
   }
   }
 
-  allUser():void{
-    this.userService.getUsers().subscribe((users) => {
-      this.users = users;
-      console.log('todos los user son:', this.users);
+  getCurrentUser(){
+    this.userService.getCurrentUser().subscribe(user=>{this.user= user
     });
   }
+
 
   ngOnChanges(): void {
     if(this.user){
@@ -69,6 +71,7 @@ export class ActivityDetailComponent implements OnInit {
 
   signUp(): void {
     const idActivity = this.activity.id;
+
     this.user.activities.push(idActivity);
     //Actualizando Usuario
     this.userService.updateUser(this.user).subscribe(() => { });

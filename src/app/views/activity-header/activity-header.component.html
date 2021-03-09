@@ -4,16 +4,16 @@
         <img class="logo" src="./../assets/logoMuseo.png">
         </li>
     
-        <li *ngIf="user" class="column">
+        <li *ngIf="miUsuario" class="column">
         <ul  class="menu right" >
             <li> <a routerLink="/home">HOME</a> </li>
-            <li *ngIf="user && user.type=='TOURIST'">
+            <li *ngIf="miUsuario && miUsuario.type=='TOURIST'">
                 <a routerLink="/favorites">FAVORITES</a>
             </li>
-            <li *ngIf="user && user.type=='TOURIST'">
+            <li *ngIf="miUsuario && miUsuario.type=='TOURIST'"><!--modificado-->
                 <a routerLink="/myactivities">MY ACTIVITIES</a>
             </li>
-            <li *ngIf="user && user.type=='COMPANY'">
+            <li *ngIf="miUsuario && miUsuario.type=='COMPANY'">
                 <a routerLink="/favorites">ADMIN</a>
             </li>
             <li><a routerLink="/profile">PROFILE</a></li>
@@ -21,7 +21,7 @@
         </ul>
         </li>
 
-        <li *ngIf="!user" class="column">
+        <li *ngIf="!miUsuario" class="column">
         <ul  class="menu right" >
             <li>
                 <a routerLink="/signin">SIGN IN</a>

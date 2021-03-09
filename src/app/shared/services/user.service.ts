@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable, of, Subject } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { User } from '../models/User';
@@ -14,6 +14,8 @@ export class UserService {
     private messageService: MessageService
   ) {}
 
+  public userSubject = new Subject<User>();
+  
   private log(message: string) {
     this.messageService.add(`User Service: ${message}`);
   }
@@ -33,6 +35,23 @@ export class UserService {
       tap((_) => this.log(`Actividad con id=${id}`)),
       catchError(this.handleError<User>(`getUser id=${id}`))
     );
+  }
+
+  storeUser(user:User):void{
+    if (user) {
+      console.log(user);
+      user.activities = [0];
+      user.favorites = [0];
+      window.localStorage.setItem('miUsuario', JSON.stringify(user)); 
+      this.userSubject.next(user);
+      console.log('usuario almacenado');
+    } else {
+      alert("User not found!");
+    }
+  }
+
+  getCurrentUser(): Observable<User> {
+    return this.userSubject.asObservable();
   }
 
   searchUser(users: User[], email: string, password: string): Observable<any> {

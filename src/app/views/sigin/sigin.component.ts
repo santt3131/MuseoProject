@@ -50,7 +50,8 @@ export class SiginComponent implements OnInit {
           this.myUser = user;//lleno o vacio del usuario autenticado
           if( Object.keys(this.myUser).length !== 0 ){
             console.log('identificacion correctamente');
-            localStorage.setItem('miUsuario',JSON.stringify(this.myUser));
+            //localStorage.setItem('miUsuario',JSON.stringify(this.myUser));
+            this.userService.storeUser(this.myUser);
             this.router.navigate(['/home']);
           }else {
             console.log('identificacion incorrecta');

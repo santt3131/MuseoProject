@@ -10,25 +10,28 @@ import { UserService } from 'src/app/shared/services/user.service';
 })
 export class ActivityHeaderComponent implements OnInit {
   @Input() user:User; 
+
+  public miUsuario:User;
   constructor(
-    public router: Router
+    public router: Router,
+    private userService: UserService
   ) { }
 
   ngOnInit(): void {
-    this.user = JSON.parse(localStorage.getItem('miUsuario'));
+    this.getCurrentUser();
   }
 
-  reloadComponent() {
-        let currentUrl = this.router.url;
-        this.router.routeReuseStrategy.shouldReuseRoute = () => false;
-        this.router.onSameUrlNavigation = 'reload';
-        this.router.navigate([currentUrl]);
-    }
+  getCurrentUser(){
+    this.userService.getCurrentUser().subscribe(user=>this.miUsuario= user);
+  }
+
 
    logout():void{
-     localStorage.clear();
-    console.log('localStorage limpio');
-    this.reloadComponent();
+    window.localStorage.removeItem('miUsuario');  
+    this.miUsuario = null;
+    this.userService.userSubject.next(this.miUsuario);
+    console.log('usuario eliminado, redirigiendo a pagina principal');
+    this.router.navigate(['/']);
   }
   
 }

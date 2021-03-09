@@ -16,6 +16,7 @@ export class JoinnowComponent implements OnInit {
   public emailExist: boolean;
   public users:User[];
   public user:User;
+  private match:boolean =false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -42,29 +43,26 @@ export class JoinnowComponent implements OnInit {
   }
 
   joinNow():void{
+
     this.userService.getUsers().subscribe((users) => {
       this.users = users;
        this.users.find((obj)=>{
-        const match = obj.email === this.email.value;
-        if( match !== true ){
-          const user = this.joinForm.value;
-          const id = this.userService.genId(this.users );
-          this.userService.addUser(user,id).subscribe(
-            (user)=>{
-              this.user = user;
-              console.log('registrando correctamente y direccionando a la pagina principal ya logeado');
-              localStorage.setItem('miUsuario',JSON.stringify(this.user));
-              this.router.navigate(['/home']);
-            });          
-        }else {
-          this.joinForm.controls['email'].setErrors({ 'verifiedEmail': true  });
-        }
-
+         this.match = obj.email === this.email.value;
       });
-
-
+      if( this.match !== true ){
+        const user = this.joinForm.value;
+        const id = this.userService.genId(this.users );
+        this.userService.addUser(user,id).subscribe(
+          (user)=>{
+            this.user = user;
+            console.log('registrando correctamente y direccionando a la pagina principal ya logeado');
+            this.userService.storeUser(this.user ); //subject
+            this.router.navigate(['/home']);
+          });          
+      }else {
+        this.joinForm.controls['email'].setErrors({ 'verifiedEmail': true  });
+      }
     });
-
 
   }
 
