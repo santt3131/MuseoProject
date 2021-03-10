@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Education } from 'src/app/shared/models/Education';
 import { User } from 'src/app/shared/models/User';
 import { UserService } from 'src/app/shared/services/user.service';
 import { MyValidation } from 'src/app/shared/Validations/my-validation';
@@ -15,6 +16,7 @@ export class ProfileComponent implements OnInit {
   public user:User; 
   public users:User[];
   public myUser:User;
+  public educations:Education[];
   
   constructor(
     private formBuilder: FormBuilder,
@@ -24,7 +26,10 @@ export class ProfileComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-     this.user = JSON.parse(localStorage.getItem('miUsuario'));
+    this.user = JSON.parse(localStorage.getItem('miUsuario'));
+    this.userService.getEducationsByUser(this.user.id).subscribe((edus)=>{
+        this.educations= edus;
+    });
     this.joinFormUpdate = this.formBuilder.group({
       'name': new FormControl('', [Validators.required,Validators.minLength(3),Validators.maxLength(55),Validators.pattern(/^([a-zA-Z]){3,55}$/)]),
       'surname': new FormControl('', [Validators.minLength(3),Validators.maxLength(55),Validators.pattern(/^([a-zA-Z]){3,55}$/)]),
@@ -41,6 +46,14 @@ export class ProfileComponent implements OnInit {
   }
 
 
+  deleteEducation(idEducation:number):void{
+      if (confirm(`Are you sure you want to delete education number ${idEducation}!`)) {
+        this.educations = this.educations.filter(edu => edu.id !== idEducation);
+        this.userService.deleteEducation(idEducation).subscribe();
+      }else{
+        alert('dont delete nothing.Dont worry');
+      }
+  }
 
 
   updateForm():void{

@@ -17,6 +17,7 @@ import { JoinnowComponent } from './views/joinnow/joinnow.component';
 import { MyActivitiesComponent } from './views/my-activities/my-activities.component';
 import { MyFavoritesComponent } from './views/my-favorites/my-favorites.component';
 import { ProfileComponent } from './views/profile/profile.component';
+import { EducationComponent } from './views/education/education.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { ProfileComponent } from './views/profile/profile.component';
     JoinnowComponent,
     MyActivitiesComponent,
     MyFavoritesComponent,
-    ProfileComponent
+    ProfileComponent,
+    EducationComponent
   ],
   imports: [
     BrowserModule,

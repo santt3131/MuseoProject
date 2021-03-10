@@ -1,0 +1,54 @@
+<h3 *ngIf="!isAddForm">UPDATE EDUCATION </h3>
+<h3 *ngIf="isAddForm">CREATE EDUCATION </h3>
+<form *ngIf=" myEducation" class="formulario" [formGroup]="educationFormUpdate" (ngSubmit)="updateFormEducation()">
+    <div>
+        <label>Type Education: </label>
+        <select [(ngModel)]="myEducation.typeEducation" [formControl]="typeEducation">
+            <option>Universitario</option>
+            <option>C.Formativo</option>
+        </select>
+        <div>
+        </div>
+    </div>
+    <div>
+        <label>Level: </label>
+        <select *ngIf="myEducation.typeEducation==='Universitario'" [(ngModel)]="myEducation.level" [formControl]="level">
+            <option>Grado</option>
+            <option>Diplomado</option>
+            <option>Licenciado(a)</option>
+            <option>Ingeniero(a)</option>
+            <option>Master</option>
+            <option>Doctorado</option>
+        </select>
+        <select *ngIf="myEducation.typeEducation==='C.Formativo'" [(ngModel)]="myEducation.level" [formControl]="level">
+            <option>Grado Superior</option>
+            <option>Grado Medio</option>
+        </select>
+    </div>
+    <div>
+        <label>Name Education: </label>
+        <input type="text" [(ngModel)]="myEducation.nameEducation" [formControl]="nameEducation">
+        <span style="color:red" *ngIf=" nameEducation.invalid && (nameEducation.touched || nameEducation.dirty )">
+            <span *ngIf="nameEducation.errors.required"> Name is required </span>
+            <span *ngIf="nameEducation.errors.minlength || nameEducation.errors.maxlength  "> Name should be 3 - 55 characters. </span>
+        </span>
+    </div>
+    <div>
+        <label>University/Other: </label>
+        <input type="text" [(ngModel)]="myEducation.universityEducation" [formControl]="universityEducation">
+        <span style="color:red" *ngIf=" universityEducation.invalid && (universityEducation.touched || universityEducation.dirty )">
+            <span *ngIf="universityEducation.errors.required"> Name is required </span>
+            <span *ngIf="universityEducation.errors.minlength || universityEducation.errors.maxlength  "> Name should be 3 - 55 characters. </span>
+        </span>
+    </div>
+    <div>
+        <label>Finish Date Education: </label>
+        <input type="text" [(ngModel)]="myEducation.finishDateEducation" [formControl]="finishDateEducation">
+        <span style="color:red" *ngIf=" finishDateEducation.invalid && (finishDateEducation.touched || finishDateEducation.dirty )">
+            <span *ngIf="finishDateEducation.errors.pattern"> Format incorrect. It should be DD/MM/YYYY </span>
+        </span>
+    </div>
+    
+    <button *ngIf="!isAddForm" type="submit" [disabled]="!educationFormUpdate.valid"  >Update Education</button>
+    <button *ngIf="isAddForm" type="submit" [disabled]="!educationFormUpdate.valid"   >New Education</button>
+</form>

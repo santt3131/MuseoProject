@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Observable, of, Subject } from 'rxjs';
-import { catchError, tap } from 'rxjs/operators';
+import { catchError, filter, map, tap } from 'rxjs/operators';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { User } from '../models/User';
 import { MessageService } from './message.service';
+import { Education } from '../models/Education';
 
 @Injectable({
   providedIn: 'root',
@@ -15,12 +16,13 @@ export class UserService {
   ) {}
 
   public userSubject = new Subject<User>();
-  
+
   private log(message: string) {
     this.messageService.add(`User Service: ${message}`);
   }
 
   private UserUrl = 'api/users';
+  private EducationUrl = 'api/educations';
 
   getUsers(): Observable<User[]> {
     return this.http.get<User[]>(this.UserUrl).pipe(
@@ -37,16 +39,16 @@ export class UserService {
     );
   }
 
-  storeUser(user:User):void{
+  storeUser(user: User): void {
     if (user) {
       console.log(user);
       user.activities = [0];
       user.favorites = [0];
-      window.localStorage.setItem('miUsuario', JSON.stringify(user)); 
+      window.localStorage.setItem('miUsuario', JSON.stringify(user));
       this.userSubject.next(user);
       console.log('usuario almacenado');
     } else {
-      alert("User not found!");
+      alert('User not found!');
     }
   }
 
@@ -69,7 +71,6 @@ export class UserService {
     }
   }
 
-
   updateUser(User: User): Observable<User> {
     return this.http.put(this.UserUrl, User, this.httpOptions).pipe(
       tap((_) => this.log(`updated hero id=${User.id}`)),
@@ -77,20 +78,89 @@ export class UserService {
     );
   }
 
-  addUser(User: User,id): Observable<User> {
-    User.id= id;
+  addUser(User: User, id): Observable<User> {
+    User.id = id;
     return this.http.post<User>(this.UserUrl, User, this.httpOptions).pipe(
-      tap(() =>
-        this.log(`Agregado correctamente User con id=${id} `)
-      ),
+      tap(() => this.log(`Agregado correctamente User con id=${id} `)),
       catchError(this.handleError<User>('addUser'))
     );
   }
 
-
-  genId(users:User[]):number{
-    return users.length>0 ? Math.max(...users.map(user=> user.id)) + 1 : 11;
+  genId(users: User[]): number {
+    return users.length > 0
+      ? Math.max(...users.map((user) => user.id)) + 1
+      : 11;
   }
+
+  deleteEducation(education: Education | number): Observable<Education> {
+    const id = typeof education === 'number' ? education : education.id;
+    const url = `${this.EducationUrl}/${id}`;
+    return this.http.delete<Education>(url, this.httpOptions);
+  }
+
+  getEducationsByUser(userId: number): Observable<Education[]> {
+    return this.http.get<Education[]>(this.EducationUrl).pipe(
+      map((arrayEdu) => arrayEdu.filter((Edu) => Edu.userId === userId)),
+      tap((_) => this.log(' Educations')),
+      catchError(this.handleError<Education[]>('getEducationsByUser', []))
+    );
+  }
+
+  getEducationsAll(): Observable<Education[]> {
+    return this.http.get<Education[]>(this.EducationUrl).pipe(
+      tap((_) => this.log(' getEducationsAll')),
+      catchError(this.handleError<Education[]>('getEducationsAll', []))
+    );
+  }
+
+  getEducationBySelect(idEducation: number): Observable<Education> {
+    const url = `${this.EducationUrl}/${idEducation}`;
+    return this.http.get<Education>(url).pipe(
+      tap((_) => this.log(`Education con id=${idEducation}`)),
+      catchError(
+        this.handleError<Education>(`getEducationBySelect id=${idEducation}`)
+      )
+    );
+  }
+
+  updateEducation(
+    edu: Education,
+    idEdu: number,
+    idUser: number
+  ): Observable<Education> {
+    const myEdu: Education = {
+      id: idEdu,
+      typeEducation: edu.typeEducation,
+      level: edu.level,
+      nameEducation: edu.nameEducation,
+      universityEducation: edu.universityEducation,
+      finishDateEducation: edu.finishDateEducation,
+      userId: idUser,
+    };
+    return this.http.put(this.EducationUrl, myEdu, this.httpOptions).pipe(
+      tap((_) => this.log(`updated Education id=${myEdu.id}`)),
+      catchError(this.handleError<any>('updateUser'))
+    );
+  }
+
+  addEducation(edu: Education, idEdu: number,idUser: number): Observable<Education> {
+    const myEdu: Education = {
+      id: idEdu,
+      typeEducation: edu.typeEducation,
+      level: edu.level,
+      nameEducation: edu.nameEducation,
+      universityEducation: edu.universityEducation,
+      finishDateEducation: edu.finishDateEducation,
+      userId: idUser,
+    }
+    return this.http.post<Education>(this.EducationUrl, myEdu, this.httpOptions).pipe(
+      tap(() => this.log(`Agregado correctamente Education con id=${idEdu} `)),
+      catchError(this.handleError<Education>('addEducation'))
+    );
+  }
+
+
+  
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),

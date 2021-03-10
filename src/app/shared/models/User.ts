@@ -14,10 +14,4 @@ export interface User{
     nationality?:string;
     nif?:string;
     about?:string;
-    //education
-    typeEducation?:string;
-    level?:string;
-    nameEducation?:string;
-    universityEducation?:string;
-    finishDateEducation?:string;
 }

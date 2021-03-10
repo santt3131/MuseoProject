@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { ActivityListComponent } from './views/activity-list/activity-list.component';
+import { EducationComponent } from './views/education/education.component';
 import { HomeComponent } from './views/home/home.component';
 import { JoinnowComponent } from './views/joinnow/joinnow.component';
 import { MyActivitiesComponent } from './views/my-activities/my-activities.component';
@@ -37,7 +38,17 @@ const routes: Routes = [
   {
     path: 'profile',
     component: ProfileComponent
+  },
+  {
+    path: 'educations/:idUser/:idEducation',
+    component: EducationComponent
+  },
+  {
+    path: 'educations/add',
+    component: EducationComponent
   }
+ 
+
 ];
 
 @NgModule({

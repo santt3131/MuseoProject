@@ -1,3 +1,5 @@
+
+<h3>PROFILE</h3>
 <form  *ngIf="user" class="formulario" [formGroup]="joinFormUpdate" (ngSubmit)="updateForm()">
     <div>
         <label>Name*: </label>
@@ -56,3 +58,43 @@
     
     <button type="submit" [disabled]="!joinFormUpdate.valid">Update Profile Information</button>
 </form>
+
+<h3>EDUCATION</h3>
+
+<div class="row">
+<div class="column">
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>TYPE</th>
+                <th>LEVEL</th>
+                <th>NAME</th>
+                <th>UNIVERSITY</th>
+                <th>FINISHDATE</th>
+                <th>ACTIONS</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let education of educations">
+                <td>{{ education.id}}</td>
+                <td>{{ education.typeEducation }}</td>
+                <td>{{ education.level }}</td>
+                <td>{{ education.nameEducation }}</td>
+                <td>{{ education.universityEducation }}</td>
+                <td>{{ education.finishDateEducation }}</td>
+                <td>
+                    <button routerLink="/educations/{{user.id}}/{{education.id}}">
+                        UPDATE
+                    </button>
+                    <button (click)="deleteEducation(education.id)">DELETE</button>
+                </td>
+            </tr>
+            <tr>
+                <button routerLink="/educations/add">NEW EDUCATION</button>
+            </tr>
+        </tbody>
+    </table>
+</div>
+</div>
+

@@ -21,12 +21,7 @@ export class InMemoryDataService implements InMemoryDbService {
         phone: 6866635354,
         nationality:'ES',
         nif:'31914309S',
-        about:'ok',
-        typeEducation:'Universidad',
-        level:'Ingeniero(a)',
-        nameEducation:'Informatica',
-        universityEducation:'UPC',
-        finishDateEducation:'02/03/2020'
+        about:'ok'
       },
       {
         id: 2, 
@@ -41,12 +36,7 @@ export class InMemoryDataService implements InMemoryDbService {
         phone: 6866633354,
         nationality:'FR',
         nif:'31914309S',
-        about:'ok',
-        typeEducation:'Universidad',
-        level:'Master',
-        nameEducation:'Psicologia',
-        universityEducation:'UOC',
-        finishDateEducation:'02/03/2019'
+        about:'ok'
       },
       {
         id: 3, 
@@ -62,12 +52,7 @@ export class InMemoryDataService implements InMemoryDbService {
         phone: 6866235354,
         nationality:'FR',
         nif:'31914309S',
-        about:'ok',
-        typeEducation:'C.Formativo',
-        level:'Superior',
-        nameEducation:'Redes',
-        universityEducation:'IFP',
-        finishDateEducation:'02/04/2019'
+        about:'ok'
       },
       {
         id: 4, 
@@ -83,12 +68,7 @@ export class InMemoryDataService implements InMemoryDbService {
         phone: 6266635354,
         nationality:'ES',
         nif:'31914309S',
-        about:'ok',
-        typeEducation:'C.Formativo',
-        level:'Medio',
-        nameEducation:'Ciberseguridad',
-        universityEducation:'IFP',
-        finishDateEducation:'01/02/2020'
+        about:'ok'
       }
       
     ];
@@ -140,6 +120,81 @@ export class InMemoryDataService implements InMemoryDbService {
       }
     ];
 
-    return {users,activities} ;
+    const educations =[
+      {
+        id:1,
+        typeEducation:'Universitario',
+        level:'Ingeniero(a)',
+        nameEducation:'Informatica',
+        universityEducation:'UPC',
+        finishDateEducation:'02/03/2018',
+        userId:1
+      },
+      {
+        id:2,
+        typeEducation:'Universitario',
+        level:'Master',
+        nameEducation:'Informatica',
+        universityEducation:'UPC',
+        finishDateEducation:'02/03/2019',
+        userId:1
+      },
+      {
+        id:3,
+        typeEducation:'Universitario',
+        level:'Ingeniero(a)',
+        nameEducation:'Informatica',
+        universityEducation:'UPC',
+        finishDateEducation:'02/03/2018',
+        userId:2
+      },
+      {
+        id:4,
+        typeEducation:'Universitario',
+        level:'Master',
+        nameEducation:'Informatica',
+        universityEducation:'UPC',
+        finishDateEducation:'02/03/2019',
+        userId:2
+      },
+      {
+        id:5,
+        typeEducation:'C.Formativo',
+        level:'Grado Superior',
+        nameEducation:'Redes',
+        universityEducation:'IFP',
+        finishDateEducation:'02/04/2015',
+        userId:3
+      },
+      {
+        id:6,
+        typeEducation:'Universitario',
+        level:'Ingeniero(a)',
+        nameEducation:'Informatica',
+        universityEducation:'UOC',
+        finishDateEducation:'02/03/2020',
+        userId:3
+      },
+      {
+        id:7,
+        typeEducation:'C.Formativo',
+        level:'Grado Medio',
+        nameEducation:'Ciberseguridad',
+        universityEducation:'IFP',
+        finishDateEducation:'01/02/2015',
+        userId:4
+      },
+      {
+        id:8,
+        typeEducation:'Universitario',
+        level:'Ingeniero(a)',
+        nameEducation:'Informatica',
+        universityEducation:'UOC',
+        finishDateEducation:'02/03/2020',
+        userId:4
+      }
+    ]
+
+    return {users,activities,educations} ;
   }
 }
