@@ -80,6 +80,7 @@ export class ActivityDetailComponent implements OnInit {
     this.activity.peopleRegistered += 1; //sumale uno
     this.activityService.updateActivity(this.activity).subscribe(() => {
       this.verifiedSignUp(); // se tiene que volver a verificar
+      alert('Registrado');
     });
   }
 

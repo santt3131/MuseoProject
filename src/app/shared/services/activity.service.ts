@@ -3,6 +3,7 @@ import { HttpClient,HttpHeaders } from '@angular/common/http'
 import { MessageService } from './message.service';
 import { Observable, of } from 'rxjs';
 import { Activity } from '../models/Activity';
+import { User } from '../models/User';
 import { catchError, map, tap } from 'rxjs/operators';
 
 @Injectable({
@@ -60,6 +61,46 @@ export class ActivityService {
       );
   }
 
+  deleteActivity(acti: Activity | number , user:User,myActivities: Activity[]): Observable<any> {
+    const idActi = typeof acti === 'number' ? acti : acti.id;
+    let newArrayActivity =[];
+    newArrayActivity = user.activities.filter((idActivity)=> idActivity  !== idActi );
+    user.activities = [];
+    user.activities = newArrayActivity;
+    
+  //new activity
+  const newActivity:Activity = myActivities.find((activity)=> activity.id === idActi );
+ const newActivityTemp:Activity={
+        id:newActivity.id ,
+        name:newActivity.name,
+        category:newActivity.category,
+        subcategory:newActivity.subcategory,
+        price:newActivity.price,
+        language:newActivity.language,
+        date: newActivity.date,
+        description:newActivity.description,
+        peopleRegistered:newActivity.peopleRegistered - 1,
+        userIdOwner: newActivity.userIdOwner
+ }
+
+    this.updateActivity(newActivityTemp).subscribe(()=>{
+        console.log('actualizando update');
+    });
+
+
+    if(user.activities){
+      return of(user);
+    }else{
+      return of(null);
+    }
+
+  /////////
+
+
+
+  
+
+  }
 
 
   private handleError<T>(operation= 'operation',result?: T){

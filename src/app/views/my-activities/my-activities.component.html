@@ -10,6 +10,7 @@
             <th>PRICE</th>
             <th>DATE</th>
             <th>PEOPLE REGISTERED</th>
+            <th>ACTIONS</th>
         </tr>
     </thead>
     <tbody >
@@ -23,6 +24,9 @@
                 <td>{{ activity.price }}</td>
                 <td>{{ activity.date }}</td>
                 <td>{{ activity.peopleRegistered }}</td>
+                <td>
+                    <button (click)="cancelSubcription( activity.id)" >CANCEL SUBSCRIPTION</button>
+                </td>   
         </tr>
     </tbody>
     </table>

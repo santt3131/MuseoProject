@@ -1,6 +1,8 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Activity } from 'src/app/shared/models/Activity';
+import { User } from 'src/app/shared/models/User';
 import { ActivityService } from 'src/app/shared/services/activity.service';
+import { UserService } from 'src/app/shared/services/user.service';
 
 @Component({
   selector: 'app-activity-list',
@@ -10,13 +12,24 @@ import { ActivityService } from 'src/app/shared/services/activity.service';
 export class ActivityListComponent implements OnInit {
   activities: Activity[];
   activity: Activity;
+  userList:User[];
 
-  constructor(private activityService: ActivityService ) { }
+  constructor(private activityService: ActivityService,
+    private userService: UserService
+    ) { }
 
   ngOnInit(): void {
     this.getActivities();
+    this.getUser();
   }
 
+  getUser():void{
+    this.userService.getUsers().subscribe((users)=>{
+      this.userList= users;
+      console.log('la lista de usuario total en home es', this.userList);
+    });
+  }
+  
   getActivities():void{
     this.activityService.getActivities()
     .subscribe(activities => {this.activities = activities
