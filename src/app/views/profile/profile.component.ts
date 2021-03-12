@@ -38,6 +38,9 @@ export class ProfileComponent implements OnInit {
       'nationality': new FormControl('', []),
       'nif': new FormControl('', [MyValidation.checkNifEs()]),
       'about': new FormControl('', []),
+      'companyName': new FormControl('null', [Validators.required,Validators.minLength(3),Validators.maxLength(55),Validators.pattern(/^([a-zA-Z](\s)?){3,55}$/)]),
+      'companyDescription': new FormControl('null', []),
+      'cif': new FormControl('null', [Validators.required]),
     },
     {
       validator : MyValidation.checkPassword('password','passwordConfirm')
@@ -75,7 +78,10 @@ export class ProfileComponent implements OnInit {
         phone:userForm.phone,
         nationality:userForm.nationality,
         nif:userForm.nif,
-        about:userForm.about
+        about:userForm.about,
+        companyName: userForm?.companyName,
+        companyDescription: userForm?.companyDescription,
+        cif:userForm?.cif
       }
 
       this.userService.updateUser(this.myUser).subscribe(() => {
@@ -116,7 +122,17 @@ get about() {
   return this.joinFormUpdate.get('about');
 }
 
+get companyName() {
+  return this.joinFormUpdate.get('companyName');
+}
 
+get companyDescription() {
+  return this.joinFormUpdate.get('companyDescription');
+}
+
+get cif() {
+  return this.joinFormUpdate.get('cif');
+}
 
 
 }

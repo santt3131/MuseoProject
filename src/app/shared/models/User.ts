@@ -14,4 +14,8 @@ export interface User{
     nationality?:string;
     nif?:string;
     about?:string;
+    //company field
+    companyName?:string,
+    companyDescription?:string,
+    cif?:string
 }

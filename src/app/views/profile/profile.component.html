@@ -55,6 +55,28 @@
         <label>About me: </label>
         <input type="text" [(ngModel)]="user.about" [formControl]="about">
     </div>
+    <div *ngIf="user?.type  === 'COMPANY' ">
+    <div>
+        <label>Company Name*: </label>
+        <input type="text" [(ngModel)]="user.companyName"  [formControl]="companyName">
+        <span style="color:red" *ngIf=" companyName.invalid && (companyName.touched || companyName.dirty )">
+            <span *ngIf="companyName.errors.required"> Company Name is required </span>
+            <span *ngIf="companyName.errors.minlength || companyName.errors.maxlength  "> Company Name should be 3 - 55 characters. </span>
+            <span *ngIf="companyName.errors.pattern"> It should be without space at the beginning and end or special characters.</span>
+        </span>
+    </div>
+    <div >
+        <label>Company Description: </label>
+        <input type="text" [(ngModel)]="user.companyDescription"  [formControl]="companyDescription">
+    </div>
+    <div >
+        <label>CIF*: </label>
+        <input type="text" [(ngModel)]="user.cif" [formControl]="cif">
+        <span style="color:red" *ngIf=" cif.invalid && (cif.touched || cif.dirty )">
+            <span *ngIf="cif.errors.required"> CIF is required </span>
+        </span>
+    </div>
+</div>
     
     <button type="submit" [disabled]="!joinFormUpdate.valid">Update Profile Information</button>
 </form>
