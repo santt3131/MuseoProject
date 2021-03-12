@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { ActivityListComponent } from './views/activity-list/activity-list.component';
+import { AdminCrudComponent } from './views/admin-crud/admin-crud.component';
 import { AdminComponent } from './views/admin/admin.component';
 import { EducationComponent } from './views/education/education.component';
 import { HomeComponent } from './views/home/home.component';
@@ -51,9 +52,15 @@ const routes: Routes = [
   {
     path: 'admin',
     component: AdminComponent
+  },
+  {
+    path:'activity/owner/:idUser/:idActivity',
+    component: AdminCrudComponent
+  },
+  {
+    path: 'activity/owner',
+    component: AdminCrudComponent
   }
- 
-
 ];
 
 @NgModule({

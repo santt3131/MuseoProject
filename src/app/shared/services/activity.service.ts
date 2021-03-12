@@ -53,13 +53,27 @@ export class ActivityService {
   };
 
 
-  addActivity(activity: Activity): Observable<Activity>{
-    return this.http.post<Activity>(this.activityUrl, activity,
+  addActivity(acti: Activity,idActivity:number,userIdOwn:number): Observable<Activity>{
+    const myAct: Activity = {
+      id:idActivity,
+      name:acti.name,
+      category:acti.category,
+      subcategory:acti.subcategory,
+      price:acti.price,
+      language:acti.language,
+      date:acti.date,
+      description:acti.description,
+      peopleRegistered:acti.peopleRegistered,
+      userIdOwner: userIdOwn
+    }
+    
+    return this.http.post<Activity>(this.activityUrl, myAct,
     this.httpOptions).pipe(
       tap((newActivity: Activity) => this.log(`Agregado correctamente Activity con id=${newActivity.id} `)),
       catchError(this.handleError<Activity>('addActivity'))
       );
   }
+
 
   deleteMyActivity(acti: Activity | number , user:User,myActivities: Activity[]): Observable<any> {
     const idActi = typeof acti === 'number' ? acti : acti.id;

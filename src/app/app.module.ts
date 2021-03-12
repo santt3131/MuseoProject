@@ -19,6 +19,7 @@ import { MyFavoritesComponent } from './views/my-favorites/my-favorites.componen
 import { ProfileComponent } from './views/profile/profile.component';
 import { EducationComponent } from './views/education/education.component';
 import { AdminComponent } from './views/admin/admin.component';
+import { AdminCrudComponent } from './views/admin-crud/admin-crud.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { AdminComponent } from './views/admin/admin.component';
     MyFavoritesComponent,
     ProfileComponent,
     EducationComponent,
-    AdminComponent
+    AdminComponent,
+    AdminCrudComponent
   ],
   imports: [
     BrowserModule,

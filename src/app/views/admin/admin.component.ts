@@ -23,6 +23,9 @@ export class AdminComponent implements OnInit {
   ngOnInit(): void {
     this.user = JSON.parse(localStorage.getItem('miUsuario'));
     this.getActivitiesOwnerUser();
+
+    
+
   }
 
   getActivitiesOwnerUser():void{
@@ -56,6 +59,10 @@ export class AdminComponent implements OnInit {
 
   }
 
+
+  updateActivity(idActivity:number):void{}
+
+  newActivitiy():void{}
 
 
 }

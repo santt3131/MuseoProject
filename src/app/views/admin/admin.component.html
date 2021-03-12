@@ -24,13 +24,16 @@
                     <td>{{ activity.description }}</td>
                     <td>{{ activity.peopleRegistered }}</td>
                     <td>
-                        <button routerLink="">
-                            UPDATE
-                        </button>
+                        <button (click)="updateActivity(activity.id)" routerLink="/activity/owner/{{user.id}}/{{activity.id}}/">UPDATE </button>
+                    </td>
+                    <td>
+
                         <button (click)="deleteDefinitiveActivity(activity.id)">DELETE</button>
                     </td>
                 </tr>
             </tbody>
         </table>
     </div>
+
 </div>
+<button (click)="newActivitiy()" routerLink="/activity/owner" >NEW ACTIVITY</button>

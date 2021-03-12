@@ -1,0 +1,63 @@
+<h3 *ngIf="!isAddForm">UPDATE ACTIVITY </h3>
+<h3 *ngIf="isAddForm">CREATE ACTIVITY </h3>
+<form  class="formulario" [formGroup]="activityFormUpdate" (ngSubmit)="activitySubmit()">
+    <div>
+        <label> Name*: </label>
+        <input type="text" [formControl]="name">
+        <span style="color:red" *ngIf=" name.invalid && (name.touched || name.dirty )">
+            <span *ngIf="name.errors.required"> Name is required </span>
+            <span *ngIf="name.errors.minlength || name.errors.maxlength  "> Name should be 3 - 55 characters.
+            </span>
+        </span>
+    </div>
+    <div>
+        <label for="type">Category*</label>
+        <select [formControl]="category" required>
+            <option *ngFor="let item of categoryList" [value]="item">{{item}}</option>
+        </select>
+        <div style="color:red" *ngIf="category.touched && category.errors">
+            <div class="error" *ngIf="category.errors.required">
+                category is required.
+            </div>
+        </div>
+    </div>
+    <div>
+        <label for="type">Subcategory*</label>
+        <select [formControl]="subcategory" required>
+            <option *ngFor="let item of subcategoryList" [value]="item">{{item}}</option>
+        </select>
+        <div style="color:red" *ngIf="subcategory.touched && subcategory.errors">
+            <div class="error" *ngIf="subcategory.errors.required">
+                Subcategory is required.
+            </div>
+        </div>
+    </div>
+    <div>
+        <label>Price*: </label>
+        <input type="text" [formControl]="price" required>
+        <span style="color:red" *ngIf=" price.invalid && (price.touched || price.dirty )">
+            <span *ngIf="price.errors.required"> Name is required </span>
+            <span *ngIf="price.errors.minlength"> Name should be 3 - 55characters. </span>
+            <span *ngIf="price.errors.pattern"> Format incorrect. It should be two decimal and positive </span>
+        </span>
+    </div>
+    <div>
+        <label for="type">Language: </label>
+        <select [formControl]="language">
+            <option *ngFor="let item of languagesList" [value]="item">{{item}}</option>
+        </select>
+    </div>
+    <div>
+        <label>Date: </label>
+        <input type="text" [formControl]="date">
+        <span style="color:red" *ngIf=" date.invalid && (date.touched || date.dirty )">
+            <span *ngIf="date.errors.pattern"> Format incorrect. It should be DD/MM/YYYY </span>
+        </span>
+    </div>
+    <div>
+        <label>Description: </label>
+        <input type="text" [formControl]="description">
+    </div>
+    <button *ngIf="!isAddForm" type="submit" [disabled]="!activityFormUpdate.valid">Update Activity</button>
+    <button *ngIf="isAddForm" type="submit" [disabled]="!activityFormUpdate.valid">New Activity</button>
+</form>
