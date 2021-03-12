@@ -59,7 +59,7 @@ export class MyActivitiesComponent implements OnInit {
   cancelSubcription(idActivity): void {
     //deleting
     this.activityService
-      .deleteActivity(idActivity, this.user, this.myActivities)
+      .deleteMyActivity(idActivity, this.user, this.myActivities)
       .subscribe((user) => {
         this.user = user;
 

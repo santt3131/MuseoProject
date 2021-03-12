@@ -1,0 +1,36 @@
+<h1>Ours activities like owner </h1>
+<div class="row">
+    <div class="column">
+        <table>
+            <thead>
+                <tr>
+                    <th>NAME</th>
+                    <th>CATEGORY</th>
+                    <th>PRICE</th>
+                    <th>LANGUAGE</th>
+                    <th>DATE</th>
+                    <th>DESCRIPTION</th>
+                    <th>PEOPLE REGISTERED</th>
+                    <th>ACTIONS</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let activity of activities">
+                    <td>{{ activity.name }}</td>
+                    <td>{{ activity.category }}</td>
+                    <td>{{ activity.price }}</td>
+                    <td>{{ activity.language }}</td>
+                    <td>{{ activity.date }}</td>
+                    <td>{{ activity.description }}</td>
+                    <td>{{ activity.peopleRegistered }}</td>
+                    <td>
+                        <button routerLink="">
+                            UPDATE
+                        </button>
+                        <button (click)="deleteDefinitiveActivity(activity.id)">DELETE</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -83,7 +83,7 @@ export class InMemoryDataService implements InMemoryDbService {
         date:'06/06/2020',
         description:'Es uno de los principales puntos de interés de la Ciudad Condal. Más de 4.000 obras del pintor malagueño que se encuentran en el palacio Aguilar, de estilo gótico y situado en la calle Montcada dentro del antiguo barrio de El Born',
         peopleRegistered: 11,
-        userId:1 //son los dueños de las actividades.
+        userIdOwner:1 //son los dueños de las actividades.
       },
       { id: 2,
         name: 'Museo Nacional de Arte de Catalunya' ,
@@ -94,7 +94,7 @@ export class InMemoryDataService implements InMemoryDbService {
         date:'05/04/2020',
         description:'también conocido por sus siglas MNAC, está situado en la ciudad de Barcelona, (España). Destaca por su colección de arte románico, considerada una de las más completas del mundo',
         peopleRegistered: 22,
-        userId:1
+        userIdOwner:1
       },
       { id: 3,
         name: 'Museo Guggenheim ' ,
@@ -105,7 +105,7 @@ export class InMemoryDataService implements InMemoryDbService {
         date:'10/04/2020',
         description:'Construido por el arquitecto canadiense Frank O. Gehry, los exteriores del Guggenheim de Bilbao ya son por si solos una obra de arte',
         peopleRegistered: 18,
-        userId:2
+        userIdOwner:2
       },
       { id: 4,
         name: 'Museo Ciencias Principe Felipe ' ,
@@ -116,7 +116,7 @@ export class InMemoryDataService implements InMemoryDbService {
         date:'28/05/2020',
         description:'Situado dentro del complejo de la Ciudad de las Artes y las Ciencias de Valencia, este museo es uno de los más interactivos de la ciudad.',
         peopleRegistered: 2,
-        userId:2
+        userIdOwner:2
       }
     ];
 

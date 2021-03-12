@@ -30,22 +30,36 @@ export class ProfileComponent implements OnInit {
     this.userService.getEducationsByUser(this.user.id).subscribe((edus)=>{
         this.educations= edus;
     });
+    if(this.user.type === 'TOURIST'){
+      this.user.companyName = 'null';
+      this.user.companyDescription= 'null',
+      this.user.cif="null"
+     }
+
     this.joinFormUpdate = this.formBuilder.group({
-      'name': new FormControl('', [Validators.required,Validators.minLength(3),Validators.maxLength(55),Validators.pattern(/^([a-zA-Z]){3,55}$/)]),
-      'surname': new FormControl('', [Validators.minLength(3),Validators.maxLength(55),Validators.pattern(/^([a-zA-Z]){3,55}$/)]),
-      'birthdate': new FormControl('', [Validators.pattern(/^([0-2][0-9]|3[0-1])(\/)(0[1-9]|1[0-2])\2(\d{4})$/)]),
-      'phone': new FormControl('', [Validators.pattern(/(\+34|0034|34)?[ -]*(6|7)[ -]*([0-9][ -]*){8}/)]),
-      'nationality': new FormControl('', []),
-      'nif': new FormControl('', [MyValidation.checkNifEs()]),
-      'about': new FormControl('', []),
-      'companyName': new FormControl('null', [Validators.required,Validators.minLength(3),Validators.maxLength(55),Validators.pattern(/^([a-zA-Z](\s)?){3,55}$/)]),
-      'companyDescription': new FormControl('null', []),
-      'cif': new FormControl('null', [Validators.required]),
-    },
-    {
-      validator : MyValidation.checkPassword('password','passwordConfirm')
-    }
-    );
+      'name': new FormControl(this.user.name, [Validators.required,Validators.minLength(3),Validators.maxLength(55),Validators.pattern(/^([a-zA-Z]){3,55}$/)]),
+      'surname': new FormControl(this.user.surname, [Validators.minLength(3),Validators.maxLength(55),Validators.pattern(/^([a-zA-Z]){3,55}$/)]),
+      'birthdate': new FormControl(this.user.birthdate, [Validators.pattern(/^([0-2][0-9]|3[0-1])(\/)(0[1-9]|1[0-2])\2(\d{4})$/)]),
+      'phone': new FormControl(this.user.phone, [Validators.pattern(/(\+34|0034|34)?[ -]*(6|7)[ -]*([0-9][ -]*){8}/)]),
+      'nationality': new FormControl(this.user.nationality, []),
+      'nif': new FormControl(this.user.nif, [MyValidation.checkNifEs()]),
+      'about': new FormControl(this.user.about, []),
+      'companyName': new FormControl(this.user.companyName, [Validators.required,Validators.minLength(3),Validators.maxLength(55),Validators.pattern(/^([a-zA-Z](\s)?){3,55}$/)]),
+      'companyDescription': new FormControl(this.user.companyDescription, []),
+      'cif': new FormControl(this.user.cif, [Validators.required]),
+    });
+  }
+
+  ngOnChanges():void{
+    console.log('soy onchange de profile');
+  }
+
+  ngAfterContentInit():void{
+    console.log('soy afterContentInit de profile');
+  }
+
+  ngAfterContentChecked():void{
+    console.log('soy aftercontentchecked de profile');
   }
 
 

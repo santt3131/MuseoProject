@@ -62,19 +62,19 @@ export class EducationComponent implements OnInit {
         this.getEducation(this.idEducation); //seteo myEducation
       }
       this.educationFormUpdate = this.formBuilder.group({
-        typeEducation: new FormControl('', []),
-        level: new FormControl('', []),
-        nameEducation: new FormControl('', [
+        typeEducation: new FormControl(this.myEducation.typeEducation, []),
+        level: new FormControl(this.myEducation.level, []),
+        nameEducation: new FormControl(this.myEducation.nameEducation, [
           Validators.required,
           Validators.minLength(3),
           Validators.maxLength(55),
         ]),
-        universityEducation: new FormControl('', [
+        universityEducation: new FormControl(this.myEducation.universityEducation, [
           Validators.required,
           Validators.minLength(3),
           Validators.maxLength(55),
         ]),
-        finishDateEducation: new FormControl('', [
+        finishDateEducation: new FormControl(this.myEducation.finishDateEducation, [
           Validators.pattern(
             /^([0-2][0-9]|3[0-1])(\/)(0[1-9]|1[0-2])\2(\d{4})$/
           ),

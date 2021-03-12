@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { ActivityListComponent } from './views/activity-list/activity-list.component';
+import { AdminComponent } from './views/admin/admin.component';
 import { EducationComponent } from './views/education/education.component';
 import { HomeComponent } from './views/home/home.component';
 import { JoinnowComponent } from './views/joinnow/joinnow.component';
@@ -46,6 +47,10 @@ const routes: Routes = [
   {
     path: 'educations/add',
     component: EducationComponent
+  },
+  {
+    path: 'admin',
+    component: AdminComponent
   }
  
 

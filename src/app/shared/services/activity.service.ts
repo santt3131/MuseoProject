@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient,HttpHeaders } from '@angular/common/http'
 import { MessageService } from './message.service';
-import { Observable, of } from 'rxjs';
+import { Observable, of, Subject } from 'rxjs';
 import { Activity } from '../models/Activity';
 import { User } from '../models/User';
 import { catchError, map, tap } from 'rxjs/operators';
@@ -61,7 +61,7 @@ export class ActivityService {
       );
   }
 
-  deleteActivity(acti: Activity | number , user:User,myActivities: Activity[]): Observable<any> {
+  deleteMyActivity(acti: Activity | number , user:User,myActivities: Activity[]): Observable<any> {
     const idActi = typeof acti === 'number' ? acti : acti.id;
     let newArrayActivity =[];
     newArrayActivity = user.activities.filter((idActivity)=> idActivity  !== idActi );
@@ -93,13 +93,24 @@ export class ActivityService {
     }else{
       return of(null);
     }
+  }
 
-  /////////
+  deleteDefinitiveActivity(acti: Activity | number): Observable<Activity> {
+      const id = typeof acti === 'number' ? acti : acti.id;
+      const url = `${this.activityUrl}/${id}`;
+      return this.http.delete<Activity>(url, this.httpOptions).pipe(
+        tap(_ => this.log(`deleted Activity id=${id}`)),
+        catchError(this.handleError<Activity>('deleteDefinitiveActivity'))
+      );
+    }
 
 
-
-  
-
+  getActivitiesOwnerUser(userId: number): Observable<Activity[]> {
+    return this.http.get<Activity[]>(this.activityUrl).pipe(
+      map((arrayAct) => arrayAct.filter((Act) => Act.userIdOwner === userId)),
+      tap((_) => this.log(' Activities')),
+      catchError(this.handleError<Activity[]>('getActivitiesByUser', []))
+    );
   }
 
 

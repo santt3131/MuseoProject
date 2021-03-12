@@ -16,6 +16,7 @@ export class UserService {
   ) {}
 
   public userSubject = new Subject<User>();
+  
 
   private log(message: string) {
     this.messageService.add(`User Service: ${message}`);
@@ -76,6 +77,24 @@ export class UserService {
       tap((_) => this.log(`updated hero id=${User.id}`)),
       catchError(this.handleError<any>('updateUser'))
     );
+  }
+
+  UpdateAllUser(arrayUser:User[],idActivityToDelete:number):Observable<any>{
+    const arrayNew:User[]=[];
+    arrayUser.forEach(myUser => {
+      if(myUser.activities.includes(idActivityToDelete)){
+        const newActivities = myUser.activities.filter((eachActivity)=> eachActivity !==idActivityToDelete);
+        myUser.activities = newActivities;
+        arrayNew.push(myUser);
+      }
+    });
+
+    //upload the users that contains this activityDelete
+    arrayNew.forEach(user => {
+      this.updateUser(user).subscribe(()=>{});
+    });
+
+    return of(arrayNew);
   }
 
   addUser(User: User, id): Observable<User> {
