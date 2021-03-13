@@ -70,8 +70,6 @@ export class ProfileComponent implements OnInit {
 
   updateForm():void{
     const userForm = this.joinFormUpdate.value;
-    console.log('los datos a registrar son:', userForm);//los nuevos campos
-    console.log('this user es :', this.user);//el antiguo puedo pillar el id
     if(userForm && this.user.id){
       this.myUser={
         id:this.user.id,//
@@ -94,7 +92,6 @@ export class ProfileComponent implements OnInit {
       }
 
       this.userService.updateUser(this.myUser).subscribe(() => {
-        console.log('se registro correctamente');
         this.userService.storeUser(this.myUser ); //tambien actualizo mi subject
         alert('usuario actualizado');
       });

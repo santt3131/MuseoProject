@@ -116,9 +116,7 @@ export class ActivityService {
         userIdOwner: newActivity.userIdOwner
  }
 
-    this.updateActivity(newActivityTemp).subscribe(()=>{
-        console.log('actualizando update');
-    });
+    this.updateActivity(newActivityTemp).subscribe(()=>{ });
 
 
     if(user.activities){

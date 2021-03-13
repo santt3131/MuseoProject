@@ -42,12 +42,10 @@ export class UserService {
 
   storeUser(user: User): void {
     if (user) {
-      console.log(user);
       user.activities = [0];//to create new user
       user.favorites = [0];
       window.localStorage.setItem('miUsuario', JSON.stringify(user));
       this.userSubject.next(user);
-      console.log('usuario almacenado: ' , user);
     } else {
       alert('User not found!');
     }

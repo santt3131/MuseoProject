@@ -26,7 +26,6 @@ export class ActivityListComponent implements OnInit {
   getUser():void{
     this.userService.getUsers().subscribe((users)=>{
       this.userList= users;
-      console.log('la lista de usuario total en home es', this.userList);
     });
   }
   

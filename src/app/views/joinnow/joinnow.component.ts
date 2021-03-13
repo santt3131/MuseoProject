@@ -55,7 +55,6 @@ export class JoinnowComponent implements OnInit {
         this.userService.addUser(user,id).subscribe(
           (user)=>{
             this.user = user;
-            console.log('registrando correctamente y direccionando a la pagina principal ya logeado');
             this.userService.storeUser(this.user ); //subject
             this.router.navigate(['/home']);
           });          

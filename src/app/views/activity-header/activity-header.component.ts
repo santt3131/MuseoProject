@@ -29,7 +29,6 @@ export class ActivityHeaderComponent implements OnInit {
     window.localStorage.removeItem('miUsuario');  
     this.miUsuario = null;
     this.userService.userSubject.next(this.miUsuario);
-    console.log('usuario eliminado, redirigiendo a pagina principal');
     this.router.navigate(['/']);
   }
   

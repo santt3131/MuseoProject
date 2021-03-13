@@ -36,7 +36,6 @@ export class AdminComponent implements OnInit {
 
   deleteDefinitiveActivity(activityId:number):void{
     if(  confirm(`Are you sure you want to delete your activity number ${activityId}!`)){
-      console.log('ELIMINADO CORRECTAMENTE')
        //actualizo en mi api all user who subscribe
        this.userService.getUsers().subscribe((users)=>{
           this.users= users;
@@ -51,9 +50,7 @@ export class AdminComponent implements OnInit {
           });
        });
 
-       this.activityService.getActivities().subscribe((activities)=>{
-        console.log('todas las activities son:',  activities );
-        });
+       this.activityService.getActivities().subscribe((activities)=>{});
       }
 
 
