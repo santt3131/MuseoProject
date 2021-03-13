@@ -13,7 +13,9 @@ import { UserService } from 'src/app/shared/services/user.service';
 export class MyFavoritesComponent implements OnInit {
   @Input() user: User;
   activities: Activity[];
-  public myActivities: Activity[] = [];
+  public myActivitiesFavorites: Activity[] = [];
+  public myfavoritesArray:any;
+
   constructor(
     private activityService: ActivityService,
     private userService: UserService,
@@ -22,16 +24,7 @@ export class MyFavoritesComponent implements OnInit {
 
   ngOnInit(): void {
     this.user = JSON.parse(localStorage.getItem('miUsuario'));
-    this.userService.getUser(this.user?.id).subscribe(
-      (user)=>{
-        this.user = user; //pregunto otra vez, en caso se haya registrado a una nueva actividad
-        if (this.user) {
-          this.getFavoritesbyUser();
-        } else {
-          this.router.navigate(['/home']);
-        }
-      }
-  );
+    this.myfavoritesArray = JSON.parse(localStorage.getItem('myListFavorites'));
   }
 
   getFavoritesbyUser(): void {
@@ -41,11 +34,33 @@ export class MyFavoritesComponent implements OnInit {
       this.activities.map((activity) => {
         activitiesArray.map((id) => {
           if (activity.id === id) {
-            this.myActivities.push(activity);
+            this.myActivitiesFavorites.push(activity);
           }
         });
       });
     });
+  }
+
+  updateActivitiesView(): void {
+    const activitiesArray = this.user?.activities; //obtendo el arra con ids
+    this.myActivitiesFavorites = [];
+    if (activitiesArray) {
+      this.activities.map((activity) => {
+        activitiesArray.map((id) => {
+          if (activity.id === id) {
+            this.myActivitiesFavorites.push(activity);
+          }
+        });
+      });
+    window.localStorage.setItem('myListFavorites', JSON.stringify(this.myActivitiesFavorites));
+    }
+  }
+
+  quit(idActivity:number):void{
+    // this.user es obtenido mediante localStorage
+    this.myfavoritesArray = this.myfavoritesArray.filter((myfavorite)=> myfavorite.id !== idActivity );
+    window.localStorage.setItem('myListFavorites', JSON.stringify(this.myfavoritesArray));
+    alert(`quit activity with ${idActivity}`);
   }
 
 }

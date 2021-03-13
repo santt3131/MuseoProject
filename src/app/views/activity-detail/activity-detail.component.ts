@@ -19,6 +19,7 @@ export class ActivityDetailComponent implements OnInit {
   public users: User[];
   public foundActivities:number ;
   public foundFavorites:number ;
+  public myfavoritesArray:any =[];
 
 
   constructor(
@@ -29,6 +30,13 @@ export class ActivityDetailComponent implements OnInit {
   ngOnInit(): void {
     this.getCurrentUser();
     this.user = JSON.parse(localStorage.getItem('miUsuario'));
+
+    if(localStorage.getItem('myListFavorites')){
+      this.myfavoritesArray = JSON.parse(localStorage.getItem('myListFavorites'));
+    }else{
+      this.myfavoritesArray = [];
+    }
+  
     if(this.user){
         this.verifiedSignUp(); 
         this.verifiedFavorites();
@@ -62,10 +70,8 @@ export class ActivityDetailComponent implements OnInit {
   }
 
    verifiedFavorites(){
-    if(this.user.favorites){
-     this.foundFavorites =  this.user?.favorites.find((idActivity)=>
-        idActivity === this.activity?.id
-    );
+    if(this.myfavoritesArray){
+    this.foundFavorites =  this.myfavoritesArray.find((idActivity)=>idActivity.id === this.activity?.id);
     }
   }
 
@@ -84,12 +90,11 @@ export class ActivityDetailComponent implements OnInit {
     });
   }
 
-  myFavorites():void{
-    const idActivity = this.activity.id;
-    this.user.favorites.push(idActivity);
-    this.userService.updateUser(this.user).subscribe(()=>{
-      this.verifiedFavorites();
-    });
+  myFavorites(activity:Activity):void{
+    this.myfavoritesArray.push(activity);
+    window.localStorage.setItem('myListFavorites', JSON.stringify(this.myfavoritesArray));
+    this.verifiedFavorites();
+    alert('activity save in favorites');
   }
 
 

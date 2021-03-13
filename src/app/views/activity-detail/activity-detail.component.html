@@ -26,5 +26,5 @@
     </tbody>
     </table>
     <button [disabled]="foundActivities? true:false"  *ngIf=" activity && user?.type ==='TOURIST'" (click)="signUp()" > SIGN UP </button>
-    <button [disabled]="foundFavorites? true:false"  *ngIf="activity && user?.type ==='TOURIST'" (click)="myFavorites()" > SAVE FAVORITES </button>
+    <button [disabled]="foundFavorites? true:false"  *ngIf="activity && user?.type ==='TOURIST'" (click)="myFavorites(activity)" > SAVE FAVORITES </button>
 </div>
