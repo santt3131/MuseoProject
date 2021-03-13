@@ -19,9 +19,10 @@ export class AdminCrudComponent implements OnInit {
   public user: User;
   public isAddForm: boolean;
   public idUser:number;
-  public idEducation:number;
+  public idActivity:number;
   public contAct: number;
   public contArrayAct: Activity[];
+  public myActivity:Activity;
 
 
   constructor(
@@ -35,7 +36,7 @@ export class AdminCrudComponent implements OnInit {
   ngOnInit(): void {
     this.user = JSON.parse(localStorage.getItem('miUsuario'));
     this.idUser = parseInt(this.route.snapshot.paramMap.get('idUser'));
-    this.idEducation = parseInt(this.route.snapshot.paramMap.get('idActivity')
+    this.idActivity = parseInt(this.route.snapshot.paramMap.get('idActivity')
     );
     this.isAddForm = !this.idUser;
 
@@ -45,22 +46,44 @@ export class AdminCrudComponent implements OnInit {
       this.contAct= this.contArrayAct.length +1;
     });
 
-
-    this.activityFormUpdate = this.formBuilder.group({
-      'name': new FormControl('', [Validators.required,Validators.minLength(3),Validators.maxLength(55)]),
-      'category': new FormControl('', [Validators.required]),
-      'subcategory': new FormControl('', [Validators.required]),
-      'price': new FormControl('', [Validators.required,Validators.pattern(/^[+]?[0-9]{1,9}(?:.[0-9]{1,2})?$/)]),
-      'language': new FormControl(null, ),
-      'date': new FormControl('', [Validators.pattern(/^([0-2][0-9]|3[0-1])(\/)(0[1-9]|1[0-2])\2(\d{4})$/)]),
-      'description': new FormControl('', []),
-    });
-
-
-    this.loadDataActivity();
-
+    if(!this.isAddForm){ //if update
+        this.activityService.getActivityBySelect(this.idActivity).subscribe((acti)=>{
+          this.myActivity= acti;
+          this.formActivity()
+        });
+    }else{
+          this.newActivity();
+          this.formActivity();
+    }
   }
 
+  newActivity(){
+    this.myActivity = {
+      id:this.contAct,
+      name:'',
+      category:'',
+      subcategory:'',
+      price:'',
+      language:'',
+      date: '' ,
+      description: '',
+      peopleRegistered: 0,
+      userIdOwner: this.idUser
+    };
+  }
+
+  formActivity(){
+    this.activityFormUpdate = this.formBuilder.group({
+      'name': new FormControl(this.myActivity.name, [Validators.required,Validators.minLength(3),Validators.maxLength(55)]),
+      'category': new FormControl(this.myActivity.category, [Validators.required]),
+      'subcategory': new FormControl(this.myActivity.subcategory, [Validators.required]),
+      'price': new FormControl(this.myActivity.price, [Validators.required,Validators.pattern(/^[+]?[0-9]{1,9}(?:.[0-9]{1,2})?$/)]),
+      'language': new FormControl(this.myActivity.language,[] ),
+      'date': new FormControl(this.myActivity.date, [Validators.pattern(/^([0-2][0-9]|3[0-1])(\/)(0[1-9]|1[0-2])\2(\d{4})$/)]),
+      'description': new FormControl(this.myActivity.description, []),
+    });
+    this.loadDataActivity();
+  }
 
   loadDataActivity(){
     this.categoryList =['Cultura y patrimonio', 'Enoturismo' ,'Playas'];
@@ -78,16 +101,11 @@ export class AdminCrudComponent implements OnInit {
 
   activitySubmit():void{
     if (!this.isAddForm) {
-      /*this.userService
-        .updateEducation(
-          this.educationFormUpdate.value,
-          this.idEducation,
-          this.idUser
-        )
+    this.activityService.updateActivity(this.activityFormUpdate.value,this.idActivity,this.idUser)
         .subscribe(() => {
-          alert('Education update correctly');
-          this.routeDirect.navigate(['/profile']);
-        });*/
+          alert('Activity update correctly');
+          this.routeDirect.navigate(['/admin']);
+        });
       }else{
         this.activityService.addActivity(this.activityFormUpdate.value,
           this.contAct,this.user.id).subscribe(()=>{

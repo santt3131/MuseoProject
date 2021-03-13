@@ -5,7 +5,7 @@ export interface Activity{
     subcategory:string,
     price:string;
     language:string;
-    date:Date;
+    date:string;
     description:string;
     peopleRegistered:number;
     userIdOwner: number;//solo sera uno

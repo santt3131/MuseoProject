@@ -27,6 +27,10 @@ export class EducationComponent implements OnInit {
   public isAddForm: boolean;
   public contEdu: number;
   public contEducation: Education[];
+  public typeEducationDrop:string[];
+  public typeEducationUniversitarioFormativo:string[];
+
+
 
   constructor(
     private formBuilder: FormBuilder,
@@ -49,43 +53,65 @@ export class EducationComponent implements OnInit {
       this.contEdu = this.contEducation.length + 1;
       //Si es el formulario Add
       if (this.isAddForm) {
-        this.myEducation = {
-          id: this.contEdu,
-          typeEducation: '',
-          level: '',
-          nameEducation: '',
-          universityEducation: '',
-          finishDateEducation: '',
-          userId: this.user.id,
-        };
+        this.newEducation();
+        this.formEducation();
       } else {
         this.getEducation(this.idEducation); //seteo myEducation
+    } });
+
+
+  }
+
+  newEducation(){
+    this.myEducation = {
+      id: this.contEdu,
+      typeEducation: '',
+      level: '',
+      nameEducation: '',
+      universityEducation: '',
+      finishDateEducation: '',
+      userId: this.user.id,
+    };
+  }
+
+  loadDataDropbox(){
+      this.typeEducationDrop= ['Universitario','C.Formativo'];
+      this.educationFormUpdate.get('typeEducation').valueChanges.subscribe(val => {
+      if(val =='Universitario' ){
+        this.typeEducationUniversitarioFormativo=['Grado','Diplomado','Licenciado(a)','Ingeniero(a)','Master','Doctorado'];
+      }else{
+        this.typeEducationUniversitarioFormativo=['Grado Superior','Grado Medio'];
       }
-      this.educationFormUpdate = this.formBuilder.group({
-        typeEducation: new FormControl(this.myEducation.typeEducation, []),
-        level: new FormControl(this.myEducation.level, []),
-        nameEducation: new FormControl(this.myEducation.nameEducation, [
-          Validators.required,
-          Validators.minLength(3),
-          Validators.maxLength(55),
-        ]),
-        universityEducation: new FormControl(this.myEducation.universityEducation, [
-          Validators.required,
-          Validators.minLength(3),
-          Validators.maxLength(55),
-        ]),
-        finishDateEducation: new FormControl(this.myEducation.finishDateEducation, [
-          Validators.pattern(
-            /^([0-2][0-9]|3[0-1])(\/)(0[1-9]|1[0-2])\2(\d{4})$/
-          ),
-        ]),
       });
+  }
+
+  formEducation():void{
+    this.educationFormUpdate = this.formBuilder.group({
+      typeEducation: new FormControl(this.myEducation.typeEducation, []),
+      level: new FormControl(this.myEducation.level, []),
+      nameEducation: new FormControl(this.myEducation.nameEducation, [
+        Validators.required,
+        Validators.minLength(3),
+        Validators.maxLength(55),
+      ]),
+      universityEducation: new FormControl(this.myEducation.universityEducation, [
+        Validators.required,
+        Validators.minLength(3),
+        Validators.maxLength(55),
+      ]),
+      finishDateEducation: new FormControl(this.myEducation.finishDateEducation, [
+        Validators.pattern(
+          /^([0-2][0-9]|3[0-1])(\/)(0[1-9]|1[0-2])\2(\d{4})$/
+        ),
+      ]),
     });
+    this.loadDataDropbox();
   }
 
   getEducation(idEducation: number): void {
     this.userService.getEducationBySelect(idEducation).subscribe((study) => {
       this.myEducation = study;
+      this.formEducation();
     });
   }
 

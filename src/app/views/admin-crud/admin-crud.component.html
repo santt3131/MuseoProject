@@ -1,6 +1,6 @@
 <h3 *ngIf="!isAddForm">UPDATE ACTIVITY </h3>
 <h3 *ngIf="isAddForm">CREATE ACTIVITY </h3>
-<form  class="formulario" [formGroup]="activityFormUpdate" (ngSubmit)="activitySubmit()">
+<form *ngIf="myActivity" class="formulario" [formGroup]="activityFormUpdate" (ngSubmit)="activitySubmit()">
     <div>
         <label> Name*: </label>
         <input type="text" [formControl]="name">

@@ -1,32 +1,22 @@
 <h3 *ngIf="!isAddForm">UPDATE EDUCATION </h3>
 <h3 *ngIf="isAddForm">CREATE EDUCATION </h3>
-<form *ngIf=" myEducation" class="formulario" [formGroup]="educationFormUpdate" (ngSubmit)="updateFormEducation()">
+<form *ngIf="myEducation" class="formulario" [formGroup]="educationFormUpdate" (ngSubmit)="updateFormEducation()">
     <div>
         <label>Type Education: </label>
-        <select [formControl]="typeEducation">
-            <option>Universitario</option>
-            <option>C.Formativo</option>
+        <select [formControl]="typeEducation" >
+            <option *ngFor="let item of typeEducationDrop" [value]="item">{{item}}</option>
         </select>
         <div>
         </div>
     </div>
     <div>
         <label>Level: </label>
-        <select *ngIf="myEducation.typeEducation==='Universitario'" [formControl]="level">
-            <option>Grado</option>
-            <option>Diplomado</option>
-            <option>Licenciado(a)</option>
-            <option>Ingeniero(a)</option>
-            <option>Master</option>
-            <option>Doctorado</option>
-        </select>
-        <select *ngIf="myEducation.typeEducation==='C.Formativo'"  [formControl]="level">
-            <option>Grado Superior</option>
-            <option>Grado Medio</option>
+        <select [formControl]="level" >
+            <option *ngFor="let item of typeEducationUniversitarioFormativo" [value]="item">{{item}}</option>
         </select>
     </div>
     <div>
-        <label>Name Education: </label>
+        <label>Name Education*: </label>
         <input type="text" [formControl]="nameEducation">
         <span style="color:red" *ngIf=" nameEducation.invalid && (nameEducation.touched || nameEducation.dirty )">
             <span *ngIf="nameEducation.errors.required"> Name is required </span>
@@ -34,7 +24,7 @@
         </span>
     </div>
     <div>
-        <label>University/Other: </label>
+        <label>University/Other*: </label>
         <input type="text"  [formControl]="universityEducation">
         <span style="color:red" *ngIf=" universityEducation.invalid && (universityEducation.touched || universityEducation.dirty )">
             <span *ngIf="universityEducation.errors.required"> Name is required </span>
@@ -42,7 +32,7 @@
         </span>
     </div>
     <div>
-        <label>Finish Date Education: </label>
+        <label>Finish Date Education*: </label>
         <input type="text"  [formControl]="finishDateEducation">
         <span style="color:red" *ngIf=" finishDateEducation.invalid && (finishDateEducation.touched || finishDateEducation.dirty )">
             <span *ngIf="finishDateEducation.errors.pattern"> Format incorrect. It should be DD/MM/YYYY </span>

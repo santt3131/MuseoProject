@@ -40,8 +40,27 @@ export class ActivityService {
   }
 
 
-  updateActivity(activity: Activity):Observable<Activity[]>{
-    return this.http.put(this.activityUrl, activity , this.httpOptions)
+  updateActivity(activity: Activity,idActi?:number,idUser?:number):Observable<Activity[]>{
+    
+    let myAct: Activity ;
+    if(activity && idActi && idUser){
+       myAct   = {
+      id:idActi,
+      name:activity.name,
+      category:activity.category,
+      subcategory:activity.subcategory,
+      price:activity.price,
+      language:activity.language,
+      date: activity.date ,
+      description: activity.description,
+      peopleRegistered: activity.peopleRegistered,
+      userIdOwner:  idUser
+    };
+  }else{
+    myAct = activity;
+  }
+    
+    return this.http.put(this.activityUrl, myAct , this.httpOptions)
     .pipe(
       tap(_ => this.log(`updated hero id=${activity.id}`)),
       catchError(this.handleError<any>('updateActivity'))
@@ -118,12 +137,24 @@ export class ActivityService {
       );
     }
 
+  
+
 
   getActivitiesOwnerUser(userId: number): Observable<Activity[]> {
     return this.http.get<Activity[]>(this.activityUrl).pipe(
       map((arrayAct) => arrayAct.filter((Act) => Act.userIdOwner === userId)),
       tap((_) => this.log(' Activities')),
       catchError(this.handleError<Activity[]>('getActivitiesByUser', []))
+    );
+  }
+
+  getActivityBySelect(idActivity: number): Observable<Activity> {
+    const url = `${this.activityUrl}/${idActivity}`;
+    return this.http.get<Activity>(url).pipe(
+      tap((_) => this.log(`Activity con id=${idActivity}`)),
+      catchError(
+        this.handleError<Activity>(`getActivityBySelect id=${idActivity}`)
+      )
     );
   }
 
