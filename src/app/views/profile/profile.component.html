@@ -38,16 +38,13 @@
     <div>
         <label>Nationality: </label>
         <select [formControl]="nationality" >
-            <option>ES</option>
-            <option>FR</option>
-            <option>IT</option>
-            <option>PT</option>
+            <option *ngFor="let item of nationalityArray" [value]="item">{{item}}</option>
         </select>
     </div>
     <div>
         <label>NIF: </label>
         <input type="text"  [formControl]="nif">
-        <span style="color:red" *ngIf=" nif.invalid && (nif.touched || nif.dirty )">
+        <span style="color:red" *ngIf="nif.invalid && (nif.touched || nif.dirty )">
             <span *ngIf="nif.errors.nif">Format Incorret, please verify your NIF </span>
         </span>
     </div>
@@ -88,7 +85,6 @@
     <table>
         <thead>
             <tr>
-                <th>ID</th>
                 <th>TYPE</th>
                 <th>LEVEL</th>
                 <th>NAME</th>
@@ -99,7 +95,6 @@
         </thead>
         <tbody>
             <tr *ngFor="let education of educations">
-                <td>{{ education.id}}</td>
                 <td>{{ education.typeEducation }}</td>
                 <td>{{ education.level }}</td>
                 <td>{{ education.nameEducation }}</td>

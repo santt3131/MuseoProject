@@ -17,7 +17,8 @@ export class ProfileComponent implements OnInit {
   public users:User[];
   public myUser:User;
   public educations:Education[];
-  
+  public nationalityArray:string[];
+  public niff:FormControl;
   constructor(
     private formBuilder: FormBuilder,
     private userService: UserService,
@@ -26,6 +27,7 @@ export class ProfileComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+   
     this.user = JSON.parse(localStorage.getItem('miUsuario'));
     this.userService.getEducationsByUser(this.user.id).subscribe((edus)=>{
         this.educations= edus;
@@ -48,20 +50,9 @@ export class ProfileComponent implements OnInit {
       'companyDescription': new FormControl(this.user.companyDescription, []),
       'cif': new FormControl(this.user.cif, [Validators.required]),
     });
-  }
 
-  ngOnChanges():void{
-    console.log('soy onchange de profile');
+    this.loadDataDropbox();
   }
-
-  ngAfterContentInit():void{
-    console.log('soy afterContentInit de profile');
-  }
-
-  ngAfterContentChecked():void{
-    console.log('soy aftercontentchecked de profile');
-  }
-
 
   deleteEducation(idEducation:number):void{
       if (confirm(`Are you sure you want to delete education number ${idEducation}!`)) {
@@ -72,6 +63,10 @@ export class ProfileComponent implements OnInit {
       }
   }
 
+
+  loadDataDropbox(){
+    this.nationalityArray=['ES','FR','IT','PT'];
+  }
 
   updateForm():void{
     const userForm = this.joinFormUpdate.value;
