@@ -58,9 +58,11 @@ export class MyFavoritesComponent implements OnInit {
 
   quit(idActivity:number):void{
     // this.user es obtenido mediante localStorage
+    if(confirm('¿Are you sure to delete ?')){
     this.myfavoritesArray = this.myfavoritesArray.filter((myfavorite)=> myfavorite.id !== idActivity );
     window.localStorage.setItem('myListFavorites', JSON.stringify(this.myfavoritesArray));
-    alert(`quit activity with ${idActivity}`);
+    alert(`favorite deleted!`);
+    }
   }
 
 }

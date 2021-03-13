@@ -36,8 +36,7 @@
         <label>Price*: </label>
         <input type="text" [formControl]="price" required>
         <span style="color:red" *ngIf=" price.invalid && (price.touched || price.dirty )">
-            <span *ngIf="price.errors.required"> Name is required </span>
-            <span *ngIf="price.errors.minlength"> Name should be 3 - 55characters. </span>
+            <span *ngIf="price.errors.required"> Price is required </span>
             <span *ngIf="price.errors.pattern"> Format incorrect. It should be two decimal and positive </span>
         </span>
     </div>

@@ -91,7 +91,7 @@ export class AdminCrudComponent implements OnInit {
     this.activityFormUpdate.get('category').valueChanges.subscribe(val => {
       if(val == 'Cultura y patrimonio') {
         this.subcategoryList = ['Concierto', 'Espectáculo', 'Excursión', 'Festivales', 'Visita guiada', 'Museo', 'Monumento']
-      } else if (val == 'enoturismo') {
+      } else if (val == 'Enoturismo') {
         this.subcategoryList = ['Bodega', 'Cata de productos', 'Cxcursión', 'Museo del vino', 'Visita guiada']
       } else {
         this.subcategoryList = ['Actividad naútica', 'Cala', 'Concierto', 'Excusión', 'Taller']

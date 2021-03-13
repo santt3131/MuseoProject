@@ -27,14 +27,14 @@
         <label>University/Other*: </label>
         <input type="text"  [formControl]="universityEducation">
         <span style="color:red" *ngIf=" universityEducation.invalid && (universityEducation.touched || universityEducation.dirty )">
-            <span *ngIf="universityEducation.errors.required"> Name is required </span>
+            <span *ngIf="universityEducation.errors.required"> University is required </span>
             <span *ngIf="universityEducation.errors.minlength || universityEducation.errors.maxlength  "> Name should be 3 - 55 characters. </span>
         </span>
     </div>
     <div>
-        <label>Finish Date Education*: </label>
+        <label>Finish Date Education: </label>
         <input type="text"  [formControl]="finishDateEducation">
-        <span style="color:red" *ngIf=" finishDateEducation.invalid && (finishDateEducation.touched || finishDateEducation.dirty )">
+        <span style="color:rgb(27, 92, 197)" *ngIf=" finishDateEducation.invalid && (finishDateEducation.touched || finishDateEducation.dirty )">
             <span *ngIf="finishDateEducation.errors.pattern"> Format incorrect. It should be DD/MM/YYYY </span>
         </span>
     </div>

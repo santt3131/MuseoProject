@@ -62,6 +62,10 @@ export class EducationComponent implements OnInit {
 
   }
 
+  onChanges(): void {
+    this.loadDataDropbox();
+  }
+
   newEducation(){
     this.myEducation = {
       id: this.contEdu,
